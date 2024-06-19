@@ -48,5 +48,10 @@ namespace Web_Ecommerce_Server.Controllers
             var updateProduct = await productService.UpdateProduct(id, product);
             return Ok(updateProduct);
         }
+        [HttpDelete("{id}")]
+        public async Task DeleteProduct(int id)
+        {          
+           await productService.DeleteProduct(id);
+        }
     }
 }

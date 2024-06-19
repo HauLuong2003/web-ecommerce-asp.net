@@ -30,6 +30,9 @@ namespace Web_Ecommerce_Server.Reponsitory
             }
             return new ServiceResponse(flag, message);
         }
+
+        
+
         // lay san pham noi bat
         public async Task<List<Product>> GetAllProducts(bool featuredProducts)
         {
@@ -138,7 +141,26 @@ namespace Web_Ecommerce_Server.Reponsitory
 
             return product;
         }
-       
+        // delete Product and detail
+        public async Task DeleteProduct(int id)
+        {
+            var product = await webEcommerceContext.Products
+                 .Include(p => p.Details)
+                 .FirstOrDefaultAsync(p => p.PId == id);
+           
+            foreach (var detail in product.Details.ToList())
+            {
+                webEcommerceContext.Details.Remove(detail);
+            }
+
+            webEcommerceContext.Products.Remove(product);
+            
+                await webEcommerceContext.SaveChangesAsync();
+            
+
+        }
+    }
+
     }
 
 }

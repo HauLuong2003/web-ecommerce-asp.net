@@ -13,5 +13,6 @@ namespace Web_Ecommerce_Server.Service
         // tao interface getproduct detail
         Task<Product> GetProductById(int productId);
         Task<Product> UpdateProduct(int id, [FromBody] Product product);
+        Task DeleteProduct(int id);
     }
 }
