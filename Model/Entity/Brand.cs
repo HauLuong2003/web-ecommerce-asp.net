@@ -9,7 +9,7 @@ public partial class Brand
 
     public string? BrandName { get; set; }
 
-    public string BrandLogo { get; set; } = null!;
+    public string? BrandLogo { get; set; } = null!;
 
     public virtual ICollection<Product> Products { get; set; } = new List<Product>();
 }

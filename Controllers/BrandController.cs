@@ -12,7 +12,7 @@ namespace Web_Ecommerce_Server.Controllers
     public class BrandController : ControllerBase
     {
         private readonly IBrand brandService;
-        public BrandController(BrandReponsitory brandService)
+        public BrandController(IBrand brandService)
         {
             this.brandService = brandService;
         }
@@ -30,6 +30,19 @@ namespace Web_Ecommerce_Server.Controllers
             var brandById = await brandService.GetBrandById(id);
             return Ok(brandById);
         }
-
+        //update Brand
+        [HttpPut("{id}")]
+        public async Task<ActionResult<ServiceResponse>> UpdateBrand(int id, Brand brand)
+        {
+            var brands = await brandService.UpdateBrand(id, brand);
+            return Ok(brands);
+        }
+        //delete brand
+        [HttpDelete("{id}")]
+        public async Task DeleteBrand(int id)
+        {
+            await brandService.DeleteBrand(id);
+           
+        }
     }
 }
