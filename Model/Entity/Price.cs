@@ -9,9 +9,9 @@ public partial class Price
 
     public double Price1 { get; set; }
 
-    public DateOnly? CreateAt { get; set; }
+    public DateOnly CreateAt { get; set; }
 
-    public DateOnly? UpdateAt { get; set; }
+    public DateOnly UpdateAt { get; set; }
 
     public int PId { get; set; }
 

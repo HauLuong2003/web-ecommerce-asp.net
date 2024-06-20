@@ -66,23 +66,18 @@ public partial class WebEcommerceContext : DbContext
             entity.Property(e => e.DetailId).HasColumnName("detail_id");
             entity.Property(e => e.Color)
                 .HasMaxLength(100)
-                .IsUnicode(false)
                 .HasColumnName("color");
             entity.Property(e => e.ConnectorPort)
                 .HasMaxLength(100)
-                .IsUnicode(false)
                 .HasColumnName("connector_port");
             entity.Property(e => e.CpuGeneration)
                 .HasMaxLength(150)
-                .IsUnicode(false)
                 .HasColumnName("CPU_generation");
             entity.Property(e => e.Keyboard)
                 .HasMaxLength(100)
-                .IsUnicode(false)
                 .HasColumnName("keyboard");
             entity.Property(e => e.Os)
                 .HasMaxLength(100)
-                .IsUnicode(false)
                 .HasColumnName("OS");
             entity.Property(e => e.PId).HasColumnName("p_id");
             entity.Property(e => e.PartNumber)
@@ -91,31 +86,24 @@ public partial class WebEcommerceContext : DbContext
                 .HasColumnName("part_number");
             entity.Property(e => e.Pin)
                 .HasMaxLength(100)
-                .IsUnicode(false)
                 .HasColumnName("pin");
             entity.Property(e => e.Screen)
                 .HasMaxLength(150)
-                .IsUnicode(false)
                 .HasColumnName("screen");
             entity.Property(e => e.SeriesLaptop)
                 .HasMaxLength(150)
-                .IsUnicode(false)
                 .HasColumnName("series_laptop");
             entity.Property(e => e.Size)
                 .HasMaxLength(100)
-                .IsUnicode(false)
                 .HasColumnName("size");
             entity.Property(e => e.Storage)
                 .HasMaxLength(100)
-                .IsUnicode(false)
                 .HasColumnName("storage");
             entity.Property(e => e.Weight)
                 .HasMaxLength(50)
-                .IsUnicode(false)
                 .HasColumnName("weight");
             entity.Property(e => e.WirelessConnection)
                 .HasMaxLength(100)
-                .IsUnicode(false)
                 .HasColumnName("wireless_connection");
 
             entity.HasOne(d => d.PIdNavigation).WithMany(p => p.Details)
@@ -263,18 +251,13 @@ public partial class WebEcommerceContext : DbContext
 
             entity.ToTable("Product");
 
-            entity.Property(e => e.PId)
-                .ValueGeneratedNever()
-                .HasColumnName("p_id");
+            entity.Property(e => e.PId).HasColumnName("p_id");
             entity.Property(e => e.BrandId).HasColumnName("brand_id");
             entity.Property(e => e.CreatAt).HasColumnName("creat_at");
             entity.Property(e => e.Description)
-                .HasColumnType("text")
+                .HasMaxLength(3000)
                 .HasColumnName("description");
-            entity.Property(e => e.Featured)
-                .HasMaxLength(1)
-                .IsUnicode(false)
-                .HasColumnName("featured");
+            entity.Property(e => e.Featured).HasColumnName("featured");
             entity.Property(e => e.Name)
                 .HasMaxLength(150)
                 .HasColumnName("name");
@@ -352,12 +335,12 @@ public partial class WebEcommerceContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("phone_number");
             entity.Property(e => e.RoleId).HasColumnName("role_id");
-            entity.Property(e => e.Sex)
-                .HasMaxLength(10)
-                .HasColumnName("sex");
             entity.Property(e => e.UpdatedAt)
                 .HasColumnType("datetime")
                 .HasColumnName("updated_at");
+            entity.Property(e => e.VerificationToken)
+                .HasMaxLength(255)
+                .HasColumnName("verificationToken");
 
             entity.HasOne(d => d.Role).WithMany(p => p.Users)
                 .HasForeignKey(d => d.RoleId)

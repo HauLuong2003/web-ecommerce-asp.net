@@ -17,7 +17,7 @@ public partial class User
 
     public string Address { get; set; } = null!;
 
-    public string? Sex { get; set; }
+    public string? VerificationToken { get; set; }
 
     public DateTime? CreatedAt { get; set; }
 

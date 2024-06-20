@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace Web_Ecommerce_Server.Model.Entity;
@@ -8,11 +7,11 @@ public partial class Product
 {
     public int PId { get; set; }
 
-    public string Name { get; set; } = null!;
+    public string? Name { get; set; }
 
     public string? Description { get; set; }
 
-    public int Quantity { get; set; }
+    public int? Quantity { get; set; }
 
     public DateOnly? CreatAt { get; set; }
 
@@ -33,5 +32,4 @@ public partial class Product
     public virtual ICollection<Price> Prices { get; set; } = new List<Price>();
 
     public virtual ICollection<Review> Reviews { get; set; } = new List<Review>();
-    
 }
