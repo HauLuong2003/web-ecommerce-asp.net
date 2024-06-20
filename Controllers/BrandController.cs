@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Web_Ecommerce_Server.Model.Entity;
 using Web_Ecommerce_Server.Reponsitory;
+using Web_Ecommerce_Server.Response;
 
 namespace Web_Ecommerce_Server.Controllers
 {
@@ -22,5 +23,12 @@ namespace Web_Ecommerce_Server.Controllers
             var brand = await brandReponsitory.GetAllBrands();
             return Ok(brand);
         }
+        [HttpGet("{id}")]
+        public async Task<ActionResult<ServiceResponse>> GetBrandById(int id)
+        {
+            var brandById = await brandReponsitory.GetBrandById(id);
+            return Ok(brandById);
+        }
+
     }
 }

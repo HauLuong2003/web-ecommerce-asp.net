@@ -6,10 +6,10 @@ using Web_Ecommerce_Server.Service;
 
 namespace Web_Ecommerce_Server.Reponsitory
 {
-    public class ProductValidationService : IProductValidationService
+    public class ValidationService : IValidationService
     {
         private readonly WebEcommerceContext webEcommerceContext;
-        public ProductValidationService(WebEcommerceContext webEcommerceContext)
+        public ValidationService(WebEcommerceContext webEcommerceContext)
         {
             this.webEcommerceContext = webEcommerceContext;
         }

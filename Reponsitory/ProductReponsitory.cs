@@ -10,9 +10,9 @@ namespace Web_Ecommerce_Server.Reponsitory
     public class ProductReponsitory : IProduct
     {
         private readonly WebEcommerceContext webEcommerceContext;
-        private readonly IProductValidationService _validationService;
+        private readonly IValidationService _validationService;
 
-        public ProductReponsitory(WebEcommerceContext webEcommerceContext, IProductValidationService _validationService)
+        public ProductReponsitory(WebEcommerceContext webEcommerceContext, IValidationService _validationService)
         {
             this.webEcommerceContext = webEcommerceContext;
             this._validationService = _validationService;
@@ -30,9 +30,7 @@ namespace Web_Ecommerce_Server.Reponsitory
             }
             return new ServiceResponse(flag, message);
         }
-
         
-
         // lay san pham noi bat
         public async Task<List<Product>> GetAllProducts(bool featuredProducts)
         {
@@ -67,22 +65,22 @@ namespace Web_Ecommerce_Server.Reponsitory
                 .FirstOrDefaultAsync(p => p.PId == id);
             if (products == null)
             {
-                return null; // Use NotFound() correctly
+                return null; // 
             }
 
             // Update product fields
-            product.Name = product.Name;
-            product.Description = product.Description;
-            product.Quantity = product.Quantity;
+            products.Name = product.Name;
+            products.Description = product.Description;
+            products.Quantity = product.Quantity;
             product.CreatAt = product.CreatAt;
-            product.UpdateAt = product.UpdateAt;
-            product.Featured = product.Featured;
-            product.BrandId = product.BrandId;
+            products.UpdateAt = product.UpdateAt;
+            products.Featured = product.Featured;
+            products.BrandId = product.BrandId;
 
             // Update details
             foreach (var detailDto in product.Details)
             {
-                var detail = product.Details.FirstOrDefault(d => d.DetailId == detailDto.DetailId);
+                var detail = products.Details.FirstOrDefault(d => d.DetailId == detailDto.DetailId);
                 if (detail != null)
                 {
                     detail.SeriesLaptop = detailDto.SeriesLaptop;
@@ -144,9 +142,7 @@ namespace Web_Ecommerce_Server.Reponsitory
         // delete Product and detail
         public async Task DeleteProduct(int id)
         {
-            var product = await webEcommerceContext.Products
-                 .Include(p => p.Details)
-                 .FirstOrDefaultAsync(p => p.PId == id);
+            var product = await GetProductById(id);
            
             foreach (var detail in product.Details.ToList())
             {
@@ -155,12 +151,11 @@ namespace Web_Ecommerce_Server.Reponsitory
 
             webEcommerceContext.Products.Remove(product);
             
-                await webEcommerceContext.SaveChangesAsync();
-            
-
+             await webEcommerceContext.SaveChangesAsync();
+ 
         }
     }
 
-    }
-
 }
+
+

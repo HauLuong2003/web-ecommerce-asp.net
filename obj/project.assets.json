@@ -5160,11 +5160,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Project_C#\\Web_Ecommerce_Server\\Web_Ecommerce_Server\\Web_Ecommerce_Server.csproj",
+      "projectUniqueName": "D:\\Project_C#\\Web_ecommerce_Server\\Web_Ecommerce_Server\\Web_Ecommerce_Server.csproj",
       "projectName": "Web_Ecommerce_Server",
-      "projectPath": "D:\\Project_C#\\Web_Ecommerce_Server\\Web_Ecommerce_Server\\Web_Ecommerce_Server.csproj",
+      "projectPath": "D:\\Project_C#\\Web_ecommerce_Server\\Web_Ecommerce_Server\\Web_Ecommerce_Server.csproj",
       "packagesPath": "C:\\Users\\haulu\\.nuget\\packages\\",
-      "outputPath": "D:\\Project_C#\\Web_ecommerce_Server\\Web_Ecommerce_Server\\obj\\",
+      "outputPath": "D:\\Project_C#\\Web_Ecommerce_Server\\Web_Ecommerce_Server\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\haulu\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -5182,8 +5182,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "D:\\Project_C#\\Web_Ecommerce_Server\\Web_Ecommerce_Cilent\\Web_Ecommerce_Cilent.csproj": {
-              "projectPath": "D:\\Project_C#\\Web_Ecommerce_Server\\Web_Ecommerce_Cilent\\Web_Ecommerce_Cilent.csproj"
+            "D:\\Project_C#\\Web_ecommerce_Server\\Web_Ecommerce_Cilent\\Web_Ecommerce_Cilent.csproj": {
+              "projectPath": "D:\\Project_C#\\Web_ecommerce_Server\\Web_Ecommerce_Cilent\\Web_Ecommerce_Cilent.csproj"
             }
           }
         }

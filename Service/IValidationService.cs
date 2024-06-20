@@ -2,7 +2,7 @@
 
 namespace Web_Ecommerce_Server.Service
 {
-    public interface IProductValidationService
+    public interface IValidationService
     {
         Task<ServiceResponse> CheckProductNameAsync(string name);
         Task<int> CommitAsync();

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "g8KQH9BzcNk=",
+  "dgSpecHash": "o+IajXWSS8k=",
   "success": true,
-  "projectFilePath": "D:\\Project_C#\\Web_Ecommerce_Server\\Web_Ecommerce_Server\\Web_Ecommerce_Server.csproj",
+  "projectFilePath": "D:\\Project_C#\\Web_ecommerce_Server\\Web_Ecommerce_Server\\Web_Ecommerce_Server.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\haulu\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\haulu\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",
