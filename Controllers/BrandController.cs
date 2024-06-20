@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Web_Ecommerce_Server.Model.Entity;
 using Web_Ecommerce_Server.Reponsitory;
 using Web_Ecommerce_Server.Response;
+using Web_Ecommerce_Server.Service;
 
 namespace Web_Ecommerce_Server.Controllers
 {
@@ -10,23 +11,23 @@ namespace Web_Ecommerce_Server.Controllers
     [ApiController]
     public class BrandController : ControllerBase
     {
-        private readonly BrandReponsitory brandReponsitory;
-        public BrandController(BrandReponsitory brandReponsitory)
+        private readonly IBrand brandService;
+        public BrandController(BrandReponsitory brandService)
         {
-            this.brandReponsitory = brandReponsitory;
+            this.brandService = brandService;
         }
         //tao controller cua get all brand
         [HttpGet]
         public async Task<ActionResult<List<Brand>>> GetAllBrand()
         {   
             
-            var brand = await brandReponsitory.GetAllBrands();
+            var brand = await brandService.GetAllBrands();
             return Ok(brand);
         }
         [HttpGet("{id}")]
         public async Task<ActionResult<ServiceResponse>> GetBrandById(int id)
         {
-            var brandById = await brandReponsitory.GetBrandById(id);
+            var brandById = await brandService.GetBrandById(id);
             return Ok(brandById);
         }
 

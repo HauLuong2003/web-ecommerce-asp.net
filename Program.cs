@@ -20,8 +20,10 @@ builder.Services.AddDbContext<WebEcommerceContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Default") ?? throw new InvalidOperationException("connection string not found"));
 });
 builder.Services.AddScoped<IProduct, ProductReponsitory>();
-builder.Services.AddScoped <IProductValidationService, ProductValidationService>();
+builder.Services.AddScoped <IValidationService, ValidationService>();
 builder.Services.AddScoped<IBrand, BrandReponsitory>();
+
+
 //ending
 builder.Services.AddControllers()
     .AddJsonOptions(options =>

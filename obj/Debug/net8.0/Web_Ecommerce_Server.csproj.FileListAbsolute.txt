@@ -152,3 +152,4 @@ D:\Project_C#\Web_Ecommerce_Server\Web_Ecommerce_Server\obj\Debug\net8.0\refint\
 D:\Project_C#\Web_Ecommerce_Server\Web_Ecommerce_Server\obj\Debug\net8.0\Web_Ecommerce_Server.pdb
 D:\Project_C#\Web_Ecommerce_Server\Web_Ecommerce_Server\obj\Debug\net8.0\Web_Ecommerce_Server.genruntimeconfig.cache
 D:\Project_C#\Web_Ecommerce_Server\Web_Ecommerce_Server\obj\Debug\net8.0\ref\Web_Ecommerce_Server.dll
+D:\Project_C#\Web_ecommerce_Server\Web_Ecommerce_Server\obj\Debug\net8.0\Web_Ecommerce_Server.sourcelink.json

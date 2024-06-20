@@ -1,13 +1,13 @@
 {
   "Version": 1,
-  "Hash": "SqJNwRsmK3XPFxqdcITDkpl92Qrs4tUW7y2GtZVOaAA=",
+  "Hash": "dxCIbBKydIQfPvy1SissPG2GmUcH7RYCSY0pT2G9me8=",
   "Source": "Web_Ecommerce_Server",
   "BasePath": "_content/Web_Ecommerce_Server",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [
     {
-      "Identity": "D:\\Project_C#\\Web_Ecommerce_Server\\Web_Ecommerce_Cilent\\Web_Ecommerce_Cilent.csproj",
+      "Identity": "D:\\Project_C#\\Web_ecommerce_Server\\Web_Ecommerce_Cilent\\Web_Ecommerce_Cilent.csproj",
       "Version": 2,
       "Source": "Web_Ecommerce_Cilent",
       "GetPublishAssetsTargets": "ComputeFilesToPublish;GetCurrentProjectPublishStaticWebAssetItems",
