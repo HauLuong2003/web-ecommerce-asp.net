@@ -9,13 +9,15 @@ public partial class User
 
     public string? Fullname { get; set; }
 
-    public string? Email { get; set; }
+    public string Email { get; set; } = null!;
 
     public string Password { get; set; } = null!;
 
+    public string PasswordSalt { get; set; } = null!;
+
     public string PhoneNumber { get; set; } = null!;
 
-    public string Address { get; set; } = null!;
+    public string? Address { get; set; }
 
     public string? VerificationToken { get; set; }
 
@@ -23,9 +25,9 @@ public partial class User
 
     public DateTime? UpdatedAt { get; set; }
 
-    public DateOnly Birthdate { get; set; }
+    public DateOnly? Birthdate { get; set; }
 
-    public string Avata { get; set; } = null!;
+    public string? Avata { get; set; }
 
     public int RoleId { get; set; }
 

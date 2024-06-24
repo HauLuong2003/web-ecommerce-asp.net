@@ -44,5 +44,15 @@ namespace Web_Ecommerce_Server.Controllers
             await brandService.DeleteBrand(id);
            
         }
+        [HttpPost]
+        public async Task<ActionResult> AddBrand(Brand brand)
+        {
+            if(brand == null)
+            {
+                return BadRequest("brand is nuull");
+            }
+            var response = await brandService.AddBrand(brand);
+            return Ok(response);
+        }
     }
 }

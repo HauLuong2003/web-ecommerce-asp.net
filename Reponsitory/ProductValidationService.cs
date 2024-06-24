@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Runtime.CompilerServices;
+using System.Security.Cryptography;
 using Web_Ecommerce_Server.Model.Entity;
 using Web_Ecommerce_Server.Response;
 using Web_Ecommerce_Server.Service;
@@ -24,9 +25,12 @@ namespace Web_Ecommerce_Server.Reponsitory
             return await webEcommerceContext.SaveChangesAsync();
         }
 
+        
         public bool ProductExists(int id)
         {
             return webEcommerceContext.Products.Any(e => e.PId == id);
         }
+
+        
     }
 }

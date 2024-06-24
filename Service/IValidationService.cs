@@ -7,5 +7,6 @@ namespace Web_Ecommerce_Server.Service
         Task<ServiceResponse> CheckProductNameAsync(string name);
         Task<int> CommitAsync();
         public bool ProductExists(int id);
+       
     }
 }

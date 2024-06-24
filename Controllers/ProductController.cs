@@ -38,7 +38,6 @@ namespace Web_Ecommerce_Server.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<ServiceResponse>> GetProductById(int id)
         {
-            
             var response = await productService.GetProductById(id);
             return Ok(response);
         }
