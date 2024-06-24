@@ -7,7 +7,6 @@ namespace Web_Ecommerce_Server.Service
     {
         void Register(UserRegisterRequest request);
         Task  Login(LoginRequest loginRequest);
-        void CreatePasswordHash(string password, out string passwordHash, out string passwordSalt);
-        string CreateRamdomToken();
+       
     }
 }

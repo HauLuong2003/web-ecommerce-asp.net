@@ -23,6 +23,8 @@ builder.Services.AddScoped<IProduct, ProductReponsitory>();
 builder.Services.AddScoped <IValidationService, ValidationService>();
 builder.Services.AddScoped<IBrand, BrandReponsitory>();
 builder.Services.AddScoped<IUser, UserReponsitory>();
+builder.Services.AddScoped<IUserService, UserServiceReponsitory>();
+
 
 //ending
 builder.Services.AddControllers()

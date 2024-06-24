@@ -297,7 +297,9 @@ public partial class WebEcommerceContext : DbContext
         {
             entity.ToTable("Role");
 
-            entity.Property(e => e.RoleId).HasColumnName("role_id");
+            entity.Property(e => e.RoleId)
+                .ValueGeneratedNever()
+                .HasColumnName("role_id");
             entity.Property(e => e.Name)
                 .HasMaxLength(100)
                 .HasColumnName("name");
@@ -305,7 +307,7 @@ public partial class WebEcommerceContext : DbContext
 
         modelBuilder.Entity<User>(entity =>
         {
-            entity.ToTable("User");
+            entity.ToTable("User", tb => tb.HasTrigger("SetUpdateAtOnUpdate"));
 
             entity.Property(e => e.UserId).HasColumnName("user_id");
             entity.Property(e => e.Address)
@@ -315,10 +317,9 @@ public partial class WebEcommerceContext : DbContext
                 .HasMaxLength(500)
                 .IsUnicode(false)
                 .HasColumnName("avata");
-            entity.Property(e => e.Birthdate).HasColumnName("birthdate");
-            entity.Property(e => e.CreatedAt)
-                .HasColumnType("datetime")
-                .HasColumnName("created_at");
+            entity.Property(e => e.CreateAt)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnName("create_at");
             entity.Property(e => e.Email)
                 .HasMaxLength(150)
                 .IsUnicode(false)
@@ -327,20 +328,25 @@ public partial class WebEcommerceContext : DbContext
                 .HasMaxLength(255)
                 .HasColumnName("fullname");
             entity.Property(e => e.Password)
-                .HasMaxLength(32)
+                .HasMaxLength(256)
                 .IsUnicode(false)
                 .HasColumnName("password");
+            entity.Property(e => e.PasswordSalt)
+                .HasMaxLength(256)
+                .IsUnicode(false)
+                .HasColumnName("passwordSalt");
             entity.Property(e => e.PhoneNumber)
                 .HasMaxLength(10)
                 .IsUnicode(false)
                 .HasColumnName("phone_number");
             entity.Property(e => e.RoleId).HasColumnName("role_id");
-            entity.Property(e => e.UpdatedAt)
-                .HasColumnType("datetime")
-                .HasColumnName("updated_at");
+            entity.Property(e => e.UpdateAt)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnName("update_at");
             entity.Property(e => e.VerificationToken)
                 .HasMaxLength(255)
                 .HasColumnName("verificationToken");
+            entity.Property(e => e.VerifiedAt).HasColumnName("verifiedAt");
 
             entity.HasOne(d => d.Role).WithMany(p => p.Users)
                 .HasForeignKey(d => d.RoleId)

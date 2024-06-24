@@ -24,7 +24,7 @@ namespace Web_Ecommerce_Server.Controllers
             return Ok(products);
         }
         [HttpPost]
-        public async Task<ActionResult<ServiceResponse>> AddProduct(Product model)
+        public async Task<ActionResult> AddProduct(Product model)
         {
             if (model is null)
             {
@@ -36,13 +36,13 @@ namespace Web_Ecommerce_Server.Controllers
         
         
         [HttpGet("{id}")]
-        public async Task<ActionResult<ServiceResponse>> GetProductById(int id)
+        public async Task<ActionResult> GetProductById(int id)
         {
             var response = await productService.GetProductById(id);
             return Ok(response);
         }
         [HttpPut("{id}")]
-        public async Task<ActionResult<ServiceResponse>> UpdateProduct(int id, Product product)
+        public async Task<ActionResult> UpdateProduct(int id, Product product)
         {
             var updateProduct = await productService.UpdateProduct(id, product);
             return Ok(updateProduct);

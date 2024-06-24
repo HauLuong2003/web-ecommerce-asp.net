@@ -45,19 +45,19 @@ namespace Web_Ecommerce_Server.Reponsitory
         }
         
         // lay thong tin san pham
-        public async Task<Product> GetProductById(int productId)
+        public async Task<Product?> GetProductById(int productId)
         {
-            var detail = await webEcommerceContext.Products
+            var product  = await webEcommerceContext.Products
                                  .Include(d => d.Details) // Include related Product
                                  .FirstOrDefaultAsync(d => d.PId == productId);
-            if (detail == null)
+            if (product == null)
             {
                 return null;
             }
-            return detail;
+            return product;
         }
         //update san pham va chi tiet san pham
-        public async Task<Product> UpdateProduct(int id, [FromBody] Product product)
+        public async Task<Product?> UpdateProduct(int id, [FromBody] Product product)
         {
             
             var products = await webEcommerceContext.Products

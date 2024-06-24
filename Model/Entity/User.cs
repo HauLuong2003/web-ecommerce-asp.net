@@ -21,15 +21,15 @@ public partial class User
 
     public string? VerificationToken { get; set; }
 
-    public DateTime? CreatedAt { get; set; }
-
-    public DateTime? UpdatedAt { get; set; }
-
-    public DateOnly? Birthdate { get; set; }
+    public DateTime? VerifiedAt { get; set; }
 
     public string? Avata { get; set; }
 
     public int RoleId { get; set; }
+
+    public DateTime CreateAt { get; set; }
+
+    public DateTime UpdateAt { get; set; }
 
     public virtual ICollection<Oder> Oders { get; set; } = new List<Oder>();
 
