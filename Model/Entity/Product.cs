@@ -13,19 +13,23 @@ public partial class Product
 
     public int? Quantity { get; set; }
 
-    public DateOnly? CreatAt { get; set; }
-
-    public DateOnly? UpdateAt { get; set; }
-
     public bool Featured { get; set; }
 
     public int BrandId { get; set; }
 
+    public string? Image1 { get; set; }
+
+    public string? Image2 { get; set; }
+
+    public string? Image3 { get; set; }
+
+    public DateTime CreateAt { get; set; }
+
+    public DateTime UpdateAt { get; set; }
+
     public virtual Brand Brand { get; set; } = null!;
 
     public virtual ICollection<Detail> Details { get; set; } = new List<Detail>();
-
-    public virtual ICollection<Galery> Galeries { get; set; } = new List<Galery>();
 
     public virtual ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
 

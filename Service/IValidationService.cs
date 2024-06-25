@@ -5,7 +5,7 @@ namespace Web_Ecommerce_Server.Service
     public interface IValidationService
     {
         Task<ServiceResponse> CheckProductNameAsync(string name);
-        Task<int> CommitAsync();
+        Task<ServiceResponse> CheckBrandNameAsync(string name);
         public bool ProductExists(int id);
        
     }

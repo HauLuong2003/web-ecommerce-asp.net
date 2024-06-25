@@ -19,8 +19,7 @@ namespace Web_Ecommerce_Server.Controllers
         public UserController(IUserAccount userService) 
         { 
             this.userService = userService;
-           
-           
+                      
         }
         [HttpPost("register")]
         public  async Task<ActionResult> Register(UserRegisterRequest request) 

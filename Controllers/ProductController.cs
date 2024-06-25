@@ -24,13 +24,13 @@ namespace Web_Ecommerce_Server.Controllers
             return Ok(products);
         }
         [HttpPost]
-        public async Task<ActionResult> AddProduct(Product model)
+        public async Task<ActionResult> AddProduct(int brandid, Product model)
         {
             if (model is null)
             {
                 return BadRequest("model is null");
             }
-            var response = await productService.AddProduct(model);
+            var response = await productService.AddProduct(brandid,model);
             return Ok(response);
         }
         

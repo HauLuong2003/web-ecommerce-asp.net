@@ -14,18 +14,18 @@ namespace Web_Ecommerce_Server.Reponsitory
         {
             this.webEcommerceContext = webEcommerceContext;
         }
+
+        public async Task<ServiceResponse> CheckBrandNameAsync(string name)
+        {
+            var brand = await webEcommerceContext.Brands.FirstOrDefaultAsync(b => b.BrandName.ToLower()!.Equals(name.ToLower()));
+            return brand is null ? new ServiceResponse(true, null!) : new ServiceResponse(false, "Product aldready exist");
+        }
+
         public async Task<ServiceResponse> CheckProductNameAsync(string name)
         {
             var product = await webEcommerceContext.Products.FirstOrDefaultAsync(x => x.Name.ToLower()!.Equals(name.ToLower()));
             return product is null ? new ServiceResponse(true, null!) : new ServiceResponse(false, "Product aldready exist");
-        }
-
-        public async Task<int> CommitAsync()
-        {
-            return await webEcommerceContext.SaveChangesAsync();
-        }
-
-        
+        }     
         public bool ProductExists(int id)
         {
             return webEcommerceContext.Products.Any(e => e.PId == id);

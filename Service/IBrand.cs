@@ -10,5 +10,6 @@ namespace Web_Ecommerce_Server.Service
         Task<Brand> UpdateBrand(int id,Brand brand);
         Task DeleteBrand(int id);
         Task<ServiceResponse> AddBrand(Brand brand);
+       
     }
 }

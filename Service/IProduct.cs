@@ -7,12 +7,14 @@ namespace Web_Ecommerce_Server.Service
     public interface IProduct
     {
         //tao interface addProduct
-        Task<ServiceResponse> AddProduct(Product model);
+        Task<Product> AddProduct(int brandid,Product model);
         //tao interface getAllProduct
         Task<List<Product>> GetAllProducts(bool featuredProducts);
         // tao interface getproduct detail
         Task<Product> GetProductById(int productId);
         Task<Product> UpdateProduct(int id, [FromBody] Product product);
         Task<ServiceResponse> DeleteProduct(int id);
+        Task<List<Product>> GetProductByName(string name);
+        Task<List<Product>> GetProductByBrand(int brandId);
     }
 }

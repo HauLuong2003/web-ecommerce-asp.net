@@ -21,7 +21,8 @@ namespace Web_Ecommerce_Server.Reponsitory
            var brand = await webEcommerceContext.Brands.FindAsync(id);
             if (brand == null)
             {
-                return null;
+                throw new ArgumentException($"Brand with ID {id} not found.");
+
             }
             return brand;
         }
@@ -36,7 +37,7 @@ namespace Web_Ecommerce_Server.Reponsitory
             var brands = await webEcommerceContext.Brands.FindAsync(id);
             if (brands == null)
             {
-                return null;
+                throw new ArgumentException($"Brand not found.");
             }
             brands.BrandName = brand.BrandName;
             brands.BrandLogo = brand.BrandLogo;
@@ -58,14 +59,16 @@ namespace Web_Ecommerce_Server.Reponsitory
         public async Task<ServiceResponse> AddBrand(Brand brand)
         {
             if (brand is null) return new ServiceResponse(false, "brand is null");
-            var (flag, message) = await validationService.CheckProductNameAsync(brand.BrandName!);
+            var (flag, message) = await validationService.CheckBrandNameAsync(brand.BrandName!);
             if (flag)
             {
                 webEcommerceContext.Brands.Add(brand);
-                await validationService.CommitAsync();
+                await webEcommerceContext.SaveChangesAsync();
                 return new ServiceResponse(true, "brand save");
             }
             return new ServiceResponse(flag, message);
         }
+
+       
     }
 }

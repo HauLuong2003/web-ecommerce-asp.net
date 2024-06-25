@@ -19,8 +19,6 @@ public partial class WebEcommerceContext : DbContext
 
     public virtual DbSet<Detail> Details { get; set; }
 
-    public virtual DbSet<Galery> Galeries { get; set; }
-
     public virtual DbSet<Oder> Oders { get; set; }
 
     public virtual DbSet<OrderCancellationReason> OrderCancellationReasons { get; set; }
@@ -110,25 +108,6 @@ public partial class WebEcommerceContext : DbContext
                 .HasForeignKey(d => d.PId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Detail_Product");
-        });
-
-        modelBuilder.Entity<Galery>(entity =>
-        {
-            entity.HasKey(e => e.ImageId);
-
-            entity.ToTable("Galery");
-
-            entity.Property(e => e.ImageId).HasColumnName("image_id");
-            entity.Property(e => e.Image)
-                .HasMaxLength(500)
-                .IsUnicode(false)
-                .HasColumnName("image");
-            entity.Property(e => e.PId).HasColumnName("p_id");
-
-            entity.HasOne(d => d.PIdNavigation).WithMany(p => p.Galeries)
-                .HasForeignKey(d => d.PId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Galery_Product");
         });
 
         modelBuilder.Entity<Oder>(entity =>
@@ -234,10 +213,16 @@ public partial class WebEcommerceContext : DbContext
             entity.Property(e => e.PriceId)
                 .ValueGeneratedNever()
                 .HasColumnName("price_id");
-            entity.Property(e => e.CreateAt).HasColumnName("create_at");
+            entity.Property(e => e.CreateAt)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime")
+                .HasColumnName("create_at");
             entity.Property(e => e.PId).HasColumnName("p_id");
             entity.Property(e => e.Price1).HasColumnName("price");
-            entity.Property(e => e.UpdateAt).HasColumnName("update_at");
+            entity.Property(e => e.UpdateAt)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime")
+                .HasColumnName("update_at");
 
             entity.HasOne(d => d.PIdNavigation).WithMany(p => p.Prices)
                 .HasForeignKey(d => d.PId)
@@ -249,20 +234,38 @@ public partial class WebEcommerceContext : DbContext
         {
             entity.HasKey(e => e.PId);
 
-            entity.ToTable("Product");
+            entity.ToTable("Product", tb => tb.HasTrigger("SetUpdateAtOnProductUpdate"));
 
             entity.Property(e => e.PId).HasColumnName("p_id");
             entity.Property(e => e.BrandId).HasColumnName("brand_id");
-            entity.Property(e => e.CreatAt).HasColumnName("creat_at");
+            entity.Property(e => e.CreateAt)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime")
+                .HasColumnName("create_at");
             entity.Property(e => e.Description)
                 .HasMaxLength(3000)
                 .HasColumnName("description");
             entity.Property(e => e.Featured).HasColumnName("featured");
+            entity.Property(e => e.Image1)
+                .HasMaxLength(300)
+                .IsUnicode(false)
+                .HasColumnName("image1");
+            entity.Property(e => e.Image2)
+                .HasMaxLength(300)
+                .IsUnicode(false)
+                .HasColumnName("image2");
+            entity.Property(e => e.Image3)
+                .HasMaxLength(300)
+                .IsUnicode(false)
+                .HasColumnName("image3");
             entity.Property(e => e.Name)
                 .HasMaxLength(150)
                 .HasColumnName("name");
             entity.Property(e => e.Quantity).HasColumnName("quantity");
-            entity.Property(e => e.UpdateAt).HasColumnName("update_at");
+            entity.Property(e => e.UpdateAt)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime")
+                .HasColumnName("update_at");
 
             entity.HasOne(d => d.Brand).WithMany(p => p.Products)
                 .HasForeignKey(d => d.BrandId)
@@ -319,6 +322,7 @@ public partial class WebEcommerceContext : DbContext
                 .HasColumnName("avata");
             entity.Property(e => e.CreateAt)
                 .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime")
                 .HasColumnName("create_at");
             entity.Property(e => e.Email)
                 .HasMaxLength(150)
@@ -346,6 +350,7 @@ public partial class WebEcommerceContext : DbContext
             entity.Property(e => e.RoleId).HasColumnName("role_id");
             entity.Property(e => e.UpdateAt)
                 .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime")
                 .HasColumnName("update_at");
             entity.Property(e => e.VerificationToken)
                 .HasMaxLength(255)
