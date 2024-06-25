@@ -339,6 +339,10 @@ public partial class WebEcommerceContext : DbContext
                 .HasMaxLength(10)
                 .IsUnicode(false)
                 .HasColumnName("phone_number");
+            entity.Property(e => e.ResetPasswordToken)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("resetPasswordToken");
             entity.Property(e => e.RoleId).HasColumnName("role_id");
             entity.Property(e => e.UpdateAt)
                 .HasDefaultValueSql("(getdate())")
@@ -346,7 +350,9 @@ public partial class WebEcommerceContext : DbContext
             entity.Property(e => e.VerificationToken)
                 .HasMaxLength(255)
                 .HasColumnName("verificationToken");
-            entity.Property(e => e.VerifiedAt).HasColumnName("verifiedAt");
+            entity.Property(e => e.VerifiedAt)
+                .HasColumnType("datetime")
+                .HasColumnName("verifiedAt");
 
             entity.HasOne(d => d.Role).WithMany(p => p.Users)
                 .HasForeignKey(d => d.RoleId)

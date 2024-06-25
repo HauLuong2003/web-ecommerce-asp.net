@@ -31,6 +31,8 @@ public partial class User
 
     public DateTime UpdateAt { get; set; }
 
+    public string? ResetPasswordToken { get; set; }
+
     public virtual ICollection<Oder> Oders { get; set; } = new List<Oder>();
 
     public virtual ICollection<Review> Reviews { get; set; } = new List<Review>();

@@ -140,10 +140,13 @@ namespace Web_Ecommerce_Server.Reponsitory
             return product;
         }
         // delete Product and detail
-        public async Task DeleteProduct(int id)
+        public async Task<ServiceResponse> DeleteProduct(int id)
         {
             var product = await GetProductById(id);
-           
+           if(product == null)
+            {
+                return new ServiceResponse(false, "not found");
+            }
             foreach (var detail in product.Details.ToList())
             {
                 webEcommerceContext.Details.Remove(detail);
@@ -152,7 +155,7 @@ namespace Web_Ecommerce_Server.Reponsitory
             webEcommerceContext.Products.Remove(product);
             
              await webEcommerceContext.SaveChangesAsync();
- 
+            return new ServiceResponse(true, "delete");
         }
     }
 

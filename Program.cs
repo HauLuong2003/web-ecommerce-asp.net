@@ -22,7 +22,7 @@ builder.Services.AddDbContext<WebEcommerceContext>(options =>
 builder.Services.AddScoped<IProduct, ProductReponsitory>();
 builder.Services.AddScoped <IValidationService, ValidationService>();
 builder.Services.AddScoped<IBrand, BrandReponsitory>();
-builder.Services.AddScoped<IUser, UserReponsitory>();
+builder.Services.AddScoped<IUserAccount, UserAccountReponsitory>();
 builder.Services.AddScoped<IUserService, UserServiceReponsitory>();
 
 

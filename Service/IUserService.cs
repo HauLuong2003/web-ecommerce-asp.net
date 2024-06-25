@@ -7,5 +7,6 @@
         // tao token xac nhn
         string CreateRamdomToken();
         bool VerifyPasswordHash(string password, string passwordHash, string passwordSalt);
+
     }
 }

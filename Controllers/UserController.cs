@@ -13,56 +13,45 @@ namespace Web_Ecommerce_Server.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private readonly IUser userService;
-        private readonly WebEcommerceContext webEcommerceContext;
-        private readonly IUserService IuserService;
-        public UserController(IUser userService, WebEcommerceContext webEcommerceContext, IUserService IuserService) 
+        private readonly IUserAccount userService;
+       
+      
+        public UserController(IUserAccount userService) 
         { 
             this.userService = userService;
-            this.webEcommerceContext = webEcommerceContext;
-            this.IuserService = IuserService;
+           
+           
         }
         [HttpPost("register")]
         public  async Task<ActionResult> Register(UserRegisterRequest request) 
         {
-            if (webEcommerceContext.Users.Any(u => u.Email == request.Email))
-            {
-                return BadRequest("User already exists");
-            }
-            userService.Register(request);
             
-            await webEcommerceContext.SaveChangesAsync();
-            return Ok(new { message = "User registered successfully" });
+            var register = await userService.Register(request);         
+            return Ok(register);
         }
         [HttpPost("login")]
         public async Task<ActionResult> Login(LoginRequest request)
         {
-            var user = await webEcommerceContext.Users.FirstOrDefaultAsync(u => u.Email == request.Email);
-            if (user == null)
-            {
-                return BadRequest("user not found");
-            }
-            if(user.VerifiedAt == null)
-            {
-                return BadRequest("Not verified");
-            }
-            if (!IuserService.VerifyPasswordHash(request.Password, user.Password, user.PasswordSalt)){
-                return BadRequest("password is incorrect.");
-            }
-            return Ok($"wellcome back,{user.Email}");
+            var login = await userService.Login(request);
+            return Ok(login);
         }
         [HttpPost("Verify")]
         public async Task<ActionResult> Verify(string token)
         {
-            var user = await webEcommerceContext.Users.FirstOrDefaultAsync(u => u.VerificationToken == token);
-            if(user == null)
-            {
-                return BadRequest("Invalid token");
-            }
-            user.VerifiedAt = DateTime.Now;
-            await webEcommerceContext.SaveChangesAsync();
-            return Ok("User verified!");
+           var verify = await userService.Verify(token);
+            return Ok(verify);
         }
-
+        [HttpPost("forget-password")]
+        public async Task<ActionResult> ForgotPassword(string email)
+        {
+            var password = await userService.ForgotPassword(email);
+            return Ok(password);
+        }
+        [HttpPost("reset-password")]
+        public async Task<ActionResult> ResetPassword(ResetPassword resetPassword)
+        {
+            var resetpass = await userService.ResetPassword(resetPassword);
+            return Ok(resetpass);
+        }
     }
 }
