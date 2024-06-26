@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Net.Mime;
 using Web_Ecommerce_Server.Model.Entity;
+using Web_Ecommerce_Server.Reponsitory;
 using Web_Ecommerce_Server.Response;
 using Web_Ecommerce_Server.Service;
 
@@ -24,13 +25,13 @@ namespace Web_Ecommerce_Server.Controllers
             return Ok(products);
         }
         [HttpPost]
-        public async Task<ActionResult> AddProduct(int brandid, Product model)
+        public async Task<ActionResult> AddProduct(Product model)
         {
             if (model is null)
             {
                 return BadRequest("model is null");
             }
-            var response = await productService.AddProduct(brandid,model);
+            var response = await productService.AddProduct(model);
             return Ok(response);
         }
         
@@ -51,6 +52,38 @@ namespace Web_Ecommerce_Server.Controllers
         public async Task DeleteProduct(int id)
         {          
            await productService.DeleteProduct(id);
+        }
+        [HttpGet("search-name")]
+        public async Task<ActionResult> SearchProductByNam(string name)
+        {
+            var searchName = await productService.GetProductByName(name);
+            return Ok(searchName);
+        }
+        [HttpGet("search-price")]
+        public async Task<ActionResult> SearchProductByPrice(float price)
+        {
+            try
+            {
+                var products = await productService.GetProductByPrice(price);
+
+                if (products == null || products.Count == 0)
+                {
+                    return NotFound("No products found for the given price.");
+                }
+
+                return Ok(products);
+            }
+            catch (Exception)
+            {
+                // Log the exception if necessary
+                return StatusCode(500, "Internal server error");
+            }
+        }
+        [HttpGet("search-brand")]
+        public async Task<ActionResult> SearchProductByBrand(int brandId)
+        {
+            var searchBrand = await productService.GetProductByBrand(brandId);
+            return Ok(searchBrand);
         }
     }
 }

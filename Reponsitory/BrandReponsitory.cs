@@ -31,7 +31,7 @@ namespace Web_Ecommerce_Server.Reponsitory
         {
             return await webEcommerceContext.Brands.ToListAsync();
         }
-
+        //update brand
         public async Task<Brand> UpdateBrand(int id,Brand brand)
         {
             var brands = await webEcommerceContext.Brands.FindAsync(id);
@@ -44,7 +44,7 @@ namespace Web_Ecommerce_Server.Reponsitory
             await webEcommerceContext.SaveChangesAsync();
             return brands;
         }
-
+        // xoa brand
         public async Task DeleteBrand(int id)
         {
             var brand = await GetBrandById(id);

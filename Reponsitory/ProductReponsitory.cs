@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics;
+using System.Security.Cryptography;
 using Web_Ecommerce_Server.Model.Entity;
 using Web_Ecommerce_Server.Response;
 using Web_Ecommerce_Server.Service;
@@ -17,26 +19,22 @@ namespace Web_Ecommerce_Server.Reponsitory
             this._validationService = _validationService;
         }
         // them san pham moi
-        public async Task<Product> AddProduct(int brandid,Product model)
+        public async Task<Product> AddProduct(Product model)
         {
-            var brand = await webEcommerceContext.Brands.FindAsync(brandid);
-            if (brand == null)
-            {
-                throw new ArgumentException($"Brand with ID {brandid} not found.");
-            }
+
+            
             var product = new Product
             {
                 Name = model.Name,
                 Description = model.Description,
-                Quantity = model.Quantity,
-                CreateAt = DateTime.UtcNow,
-                UpdateAt = DateTime.UtcNow,
+                Quantity = model.Quantity,               
                 Featured = model.Featured,
-                BrandId = brandid, // Set BrandId to link with existing Brand
+                BrandId = model.BrandId, // Set BrandId to link with existing Brand
                 Image1 = model.Image1,
                 Image2 = model.Image2,
-                Image3 = model.Image3
-               
+                Image3 = model.Image3,
+                CreateAt = DateTime.Now,
+                UpdateAt = DateTime.Now
             };
             // Add Prices associated with the product
             foreach (var priceRequest in model.Prices)
@@ -44,10 +42,11 @@ namespace Web_Ecommerce_Server.Reponsitory
                 var price = new Price
                 {
                     Price1 = priceRequest.Price1,
-                    CreateAt = DateTime.UtcNow,
-                    UpdateAt = DateTime.UtcNow
+                    CreateAt = DateTime.Now,
+                    UpdateAt = DateTime.Now,
+                    PId = model.PId
                 };
-                product.Prices.Add(price);
+               webEcommerceContext.Prices.Add(price);
             }
             // Add Details associated with the product
             foreach (var detailRequest in model.Details)
@@ -66,14 +65,16 @@ namespace Web_Ecommerce_Server.Reponsitory
                     Os = detailRequest.Os,
                     Size = detailRequest.Size,
                     Pin = detailRequest.Pin,
-                    Weight = detailRequest.Weight
+                    Weight = detailRequest.Weight,
+                    PId = model.PId
                 };
-                product.Details.Add(detail);
+                webEcommerceContext.Details.Add(detail);
             }
             webEcommerceContext.Products.Add(product);
+          
             await webEcommerceContext.SaveChangesAsync();
-            return product;
 
+            return product;
         }
 
         // lay san pham noi bat
@@ -112,19 +113,20 @@ namespace Web_Ecommerce_Server.Reponsitory
                 .FirstOrDefaultAsync(p => p.PId == id);
             if (products == null)
             {
-                throw new ArgumentException($"product not found.");
+                throw new ArgumentException("product not found.");
 
             }
-
+            
             // Update product fields
             products.Name = product.Name;
             products.Description = product.Description;
-            products.Quantity = product.Quantity;
-            product.CreateAt = product.CreateAt;
-            products.UpdateAt = product.UpdateAt;
+            products.Quantity = product.Quantity; 
+            products.UpdateAt = DateTime.Now;
             products.Featured = product.Featured;
             products.BrandId = product.BrandId;
-
+            products.Image1 = product.Image1;
+            products.Image2 = product.Image2;
+            products.Image3 = product.Image3;
             // Update details
             foreach (var detailDto in product.Details)
             {
@@ -144,11 +146,12 @@ namespace Web_Ecommerce_Server.Reponsitory
                     detail.Size = detailDto.Size;
                     detail.Pin = detailDto.Pin;
                     detail.Weight = detailDto.Weight;
+                   
                 }
                 else
                 {
-                    // Add new details if they don't exist
-                    var newDetail = new Detail
+                    // Add new detail
+                    products.Details.Add(new Detail
                     {
                         SeriesLaptop = detailDto.SeriesLaptop,
                         PartNumber = detailDto.PartNumber,
@@ -163,9 +166,8 @@ namespace Web_Ecommerce_Server.Reponsitory
                         Size = detailDto.Size,
                         Pin = detailDto.Pin,
                         Weight = detailDto.Weight,
-                        PId = detailDto.PId
-                    };
-                    product.Details.Add(newDetail);
+                        PId = products.PId
+                    });
                 }
             }
             //update price
@@ -174,12 +176,23 @@ namespace Web_Ecommerce_Server.Reponsitory
                 var price = products.Prices.FirstOrDefault(p => p.PriceId == prices.PriceId);
                 if (price != null)
                 {
-                    price.Price1 = prices.Price1;
+                    price.Price1 = prices.Price1;                 
                     
+                }
+                else
+                {
+                    // Add new price
+                    products.Prices.Add(new Price
+                    {
+                        Price1 = prices.Price1,
+                        CreateAt = DateTime.UtcNow, // Set the create timestamp
+                        UpdateAt = DateTime.UtcNow, // Set the update timestamp
+                        PId = products.PId
+                    });
                 }
             }
             try
-            {
+            {               
                 await webEcommerceContext.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
@@ -214,17 +227,40 @@ namespace Web_Ecommerce_Server.Reponsitory
              await webEcommerceContext.SaveChangesAsync();
             return new ServiceResponse(true, "delete");
         }
-
-      
-
-        Task<List<Product>> IProduct.GetProductByName(string name)
+        // lấy sản phẩm theo tên
+        public async Task<List<Product>> GetProductByName(string name)
         {
-            throw new NotImplementedException();
+            if (name == null)
+            {
+                throw new NotImplementedException("not found");
+            }
+            return await webEcommerceContext.Products
+                               .Where(p => p.Name.Contains(name))
+                               .ToListAsync();
         }
-
-        public Task<List<Product>> GetProductByBrand(int brandId)
+        // lấy sản phẩm theo thương hiệu
+        public async Task<List<Product>> GetProductByBrand(int brandId)
         {
-            throw new NotImplementedException();
+            return await webEcommerceContext.Products
+                            .Where(p => p.BrandId == brandId)
+                            .ToListAsync();
+        }
+        // lấy sản phẩm theo giá
+        public async Task<List<Product>> GetProductByPrice(float price)
+        {
+            // Joining Products and Prices tables and filtering by the given price
+            var products = await (from p in webEcommerceContext.Products
+                                  join pr in webEcommerceContext.Prices on p.PId equals pr.PId
+                                  where pr.Price1 == price
+                                  select p).ToListAsync();
+
+            if (products == null || products.Count == 0)
+            {
+                return new List<Product>();
+
+            }
+
+            return products;
         }
     }
 
