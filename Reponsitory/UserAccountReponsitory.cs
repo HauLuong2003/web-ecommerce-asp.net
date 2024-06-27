@@ -60,6 +60,10 @@ namespace Web_Ecommerce_Server.Reponsitory
             {
                 return new ServiceResponse(false, "User already exists");
             }
+            if (webEcommerceContext.Users.Any(u => u.PhoneNumber == request.Phone))
+            {
+                return new ServiceResponse(false, "Phone already exists");
+            }
             userService.CreatePasswordHash(request.Password,
                                     out string PasswordHash,
                                     out string passwordSalt);

@@ -47,7 +47,9 @@ public partial class WebEcommerceContext : DbContext
         {
             entity.ToTable("Brand");
 
-            entity.Property(e => e.BrandId).HasColumnName("brand_id");
+            entity.Property(e => e.BrandId)
+                .ValueGeneratedNever()
+                .HasColumnName("brand_id");
             entity.Property(e => e.BrandLogo)
                 .HasMaxLength(500)
                 .IsUnicode(false)
@@ -210,9 +212,7 @@ public partial class WebEcommerceContext : DbContext
         {
             entity.ToTable("Price");
 
-            entity.Property(e => e.PriceId)
-                .ValueGeneratedNever()
-                .HasColumnName("price_id");
+            entity.Property(e => e.PriceId).HasColumnName("price_id");
             entity.Property(e => e.CreateAt)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime")
@@ -234,7 +234,11 @@ public partial class WebEcommerceContext : DbContext
         {
             entity.HasKey(e => e.PId);
 
-            entity.ToTable("Product", tb => tb.HasTrigger("SetUpdateAtOnProductUpdate"));
+            entity.ToTable("Product", tb =>
+                {
+                    tb.HasTrigger("SetUpdateAtOnPriceUpdate");
+                    tb.HasTrigger("SetUpdateAtOnProductUpdate");
+                });
 
             entity.Property(e => e.PId).HasColumnName("p_id");
             entity.Property(e => e.BrandId).HasColumnName("brand_id");
@@ -311,6 +315,10 @@ public partial class WebEcommerceContext : DbContext
         modelBuilder.Entity<User>(entity =>
         {
             entity.ToTable("User", tb => tb.HasTrigger("SetUpdateAtOnUpdate"));
+
+            entity.HasIndex(e => e.PhoneNumber, "IX_User").IsUnique();
+
+            entity.HasIndex(e => e.Email, "IX_User_2").IsUnique();
 
             entity.Property(e => e.UserId).HasColumnName("user_id");
             entity.Property(e => e.Address)

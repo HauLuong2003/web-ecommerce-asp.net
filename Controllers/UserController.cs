@@ -50,10 +50,8 @@ namespace Web_Ecommerce_Server.Controllers
             }
             catch (Exception ex)
             {
-
                 return BadRequest(ex.Message);
             }
-
         }
         [HttpGet("user-name")]
         public async Task<ActionResult> GetUserByName(string name)

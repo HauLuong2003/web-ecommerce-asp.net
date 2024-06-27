@@ -7,11 +7,11 @@ public partial class Product
 {
     public int PId { get; set; }
 
-    public string? Name { get; set; }
+    public string Name { get; set; } = null!;
 
     public string? Description { get; set; }
 
-    public int? Quantity { get; set; }
+    public int Quantity { get; set; }
 
     public bool Featured { get; set; }
 
