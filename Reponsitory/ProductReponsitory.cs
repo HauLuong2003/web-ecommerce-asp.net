@@ -230,36 +230,50 @@ namespace Web_Ecommerce_Server.Reponsitory
         // lấy sản phẩm theo tên
         public async Task<List<Product>> GetProductByName(string name)
         {
-            if (name == null)
-            {
-                throw new NotImplementedException("not found");
-            }
-            return await webEcommerceContext.Products
-                               .Where(p => p.Name.Contains(name))
-                               .ToListAsync();
+                if (name == null)
+                {
+                    throw new NotImplementedException("not found");
+                }
+                var nameProduct = await webEcommerceContext.Products
+                                   .Where(p => p.Name.Contains(name))
+                                   .ToListAsync();
+                if (nameProduct == null)
+                {
+                    throw new NotImplementedException("not found");
+
+                }
+                return nameProduct;             
         }
         // lấy sản phẩm theo thương hiệu
         public async Task<List<Product>> GetProductByBrand(int brandId)
-        {
-            return await webEcommerceContext.Products
+        {           
+            var productBrand= await webEcommerceContext.Products
                             .Where(p => p.BrandId == brandId)
                             .ToListAsync();
+            if (productBrand == null)
+            {
+                throw new NotImplementedException("not found");
+            }
+            return productBrand;
         }
         // lấy sản phẩm theo giá
         public async Task<List<Product>> GetProductByPrice(float price)
         {
+            if(price <= 0)
+            {
+                throw new NotImplementedException("not found");
+            }          
             // Joining Products and Prices tables and filtering by the given price
             var products = await (from p in webEcommerceContext.Products
                                   join pr in webEcommerceContext.Prices on p.PId equals pr.PId
-                                  where pr.Price1 == price
+                                  where pr.Price1 <= price
                                   select p).ToListAsync();
 
             if (products == null || products.Count == 0)
             {
-                return new List<Product>();
+                throw new NotImplementedException("not found");
 
             }
-
             return products;
         }
     }

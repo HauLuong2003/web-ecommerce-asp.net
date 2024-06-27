@@ -1,11 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Web_Ecommerce_Server.Model.Entity;
-using Web_Ecommerce_Server.Model.Request;
 using Web_Ecommerce_Server.Service;
-
 
 namespace Web_Ecommerce_Server.Controllers
 {
@@ -13,44 +9,90 @@ namespace Web_Ecommerce_Server.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private readonly IUserAccount userService;
-       
-      
-        public UserController(IUserAccount userService) 
-        { 
-            this.userService = userService;
-                      
-        }
-        [HttpPost("register")]
-        public  async Task<ActionResult> Register(UserRegisterRequest request) 
+        private readonly IUser user;
+        public UserController (IUser user)
         {
-            
-            var register = await userService.Register(request);         
-            return Ok(register);
+            this.user = user;   
         }
-        [HttpPost("login")]
-        public async Task<ActionResult> Login(LoginRequest request)
+        [HttpGet]
+        public async Task<ActionResult> GetUser()
         {
-            var login = await userService.Login(request);
-            return Ok(login);
+            try
+            {
+                var getUser = await user.GetAllUser();
+                return Ok(getUser);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
-        [HttpPost("Verify")]
-        public async Task<ActionResult> Verify(string token)
+        [HttpGet("{id}")]
+        public async Task<ActionResult> GetUserById(int id)
         {
-           var verify = await userService.Verify(token);
-            return Ok(verify);
+            try
+            {
+                var getUserById = await user.GetUserById(id);
+                return Ok(getUserById);
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
-        [HttpPost("forget-password")]
-        public async Task<ActionResult> ForgotPassword(string email)
+        [HttpGet("user-phone")]
+        public async Task<ActionResult> GetUserByPhone(string phone)
         {
-            var password = await userService.ForgotPassword(email);
-            return Ok(password);
+            try
+            {
+                var getUserByPhone = await user.GetUserByPhone(phone);
+                return Ok(getUserByPhone);
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.Message);
+            }
+
         }
-        [HttpPost("reset-password")]
-        public async Task<ActionResult> ResetPassword(ResetPassword resetPassword)
+        [HttpGet("user-name")]
+        public async Task<ActionResult> GetUserByName(string name)
         {
-            var resetpass = await userService.ResetPassword(resetPassword);
-            return Ok(resetpass);
+            try
+            {
+                var getUserByName = await user.GetUserByPhone(name);
+                return Ok(getUserByName);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+        [HttpDelete("id")]
+        public async Task<ActionResult> DeleteUser(int id)
+        {
+            try
+            {
+                var deleteUser = await user.Delete(id);
+                return Ok(deleteUser);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+        [HttpPut]
+        public async Task<ActionResult> UpdateUser(int id, User users)
+        {
+            try
+            {
+                var update = await user.Update(id, users);
+                return Ok(update);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
     }
 }

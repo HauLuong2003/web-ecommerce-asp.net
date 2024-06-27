@@ -19,40 +19,73 @@ namespace Web_Ecommerce_Server.Controllers
         //tao controller cua get all brand
         [HttpGet]
         public async Task<ActionResult<List<Brand>>> GetAllBrand()
-        {   
-            
-            var brand = await brandService.GetAllBrands();
-            return Ok(brand);
+        {
+            try
+            {
+                var brand = await brandService.GetAllBrands();
+                return Ok(brand);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpGet("{id}")]
         public async Task<ActionResult<ServiceResponse>> GetBrandById(int id)
         {
-            var brandById = await brandService.GetBrandById(id);
-            return Ok(brandById);
+            try
+            {
+                var brandById = await brandService.GetBrandById(id);
+                return Ok(brandById);
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         //update Brand
         [HttpPut("{id}")]
         public async Task<ActionResult<ServiceResponse>> UpdateBrand(int id, Brand brand)
         {
-            var brands = await brandService.UpdateBrand(id, brand);
-            return Ok(brands);
+            try
+            {
+                var brands = await brandService.UpdateBrand(id, brand);
+                return Ok(brands);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         //delete brand
         [HttpDelete("{id}")]
         public async Task DeleteBrand(int id)
         {
-            await brandService.DeleteBrand(id);
-           
+            try
+            {
+                await brandService.DeleteBrand(id);
+            }
+            catch(Exception ex)
+            {
+                 BadRequest(ex.Message);
+            }
         }
         [HttpPost]
         public async Task<ActionResult> AddBrand(Brand brand)
         {
-            if(brand == null)
+            try
             {
-                return BadRequest("brand is nuull");
+                if (brand == null)
+                {
+                    return BadRequest("brand is nuull");
+                }
+                var response = await brandService.AddBrand(brand);
+                return Ok(response);
             }
-            var response = await brandService.AddBrand(brand);
-            return Ok(response);
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

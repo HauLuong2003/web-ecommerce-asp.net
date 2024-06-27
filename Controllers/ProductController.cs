@@ -21,18 +21,32 @@ namespace Web_Ecommerce_Server.Controllers
         [HttpGet]
         public async Task<ActionResult<List<Product>>> GetAllProducts(bool featured)
         {
-            var products = await productService.GetAllProducts(featured);
-            return Ok(products);
+            try
+            {
+                var products = await productService.GetAllProducts(featured);
+                return Ok(products);
+            }
+            catch (Exception ex)
+            {
+                   return BadRequest(ex.Message);
+            }
         }
         [HttpPost]
         public async Task<ActionResult> AddProduct(Product model)
         {
-            if (model is null)
+            try
             {
-                return BadRequest("model is null");
+                if (model is null)
+                {
+                    return BadRequest("model is null");
+                }
+                var response = await productService.AddProduct(model);
+                return Ok(response);
             }
-            var response = await productService.AddProduct(model);
-            return Ok(response);
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         
         
@@ -56,8 +70,15 @@ namespace Web_Ecommerce_Server.Controllers
         [HttpGet("search-name")]
         public async Task<ActionResult> SearchProductByNam(string name)
         {
-            var searchName = await productService.GetProductByName(name);
-            return Ok(searchName);
+            try
+            {
+                var searchName = await productService.GetProductByName(name);
+                return Ok(searchName);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpGet("search-price")]
         public async Task<ActionResult> SearchProductByPrice(float price)
