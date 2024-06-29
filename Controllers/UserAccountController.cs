@@ -6,7 +6,6 @@ using Web_Ecommerce_Server.Model.Entity;
 using Web_Ecommerce_Server.Model.Request;
 using Web_Ecommerce_Server.Service;
 
-
 namespace Web_Ecommerce_Server.Controllers
 {
     [Route("api/[controller]")]
@@ -31,26 +30,55 @@ namespace Web_Ecommerce_Server.Controllers
         [HttpPost("login")]
         public async Task<ActionResult> Login(LoginRequest request)
         {
-            var login = await userService.Login(request);
-            return Ok(login);
+            try
+            {
+                var login = await userService.Login(request);
+                return Ok(login);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
         }
         [HttpPost("Verify")]
         public async Task<ActionResult> Verify(string token)
         {
+            try { 
            var verify = await userService.Verify(token);
             return Ok(verify);
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpPost("forget-password")]
         public async Task<ActionResult> ForgotPassword(string email)
         {
-            var password = await userService.ForgotPassword(email);
-            return Ok(password);
+            try
+            {
+                var password = await userService.ForgotPassword(email);
+                return Ok(password);
+            }
+            catch(Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
         [HttpPost("reset-password")]
         public async Task<ActionResult> ResetPassword(ResetPassword resetPassword)
         {
-            var resetpass = await userService.ResetPassword(resetPassword);
-            return Ok(resetpass);
+            try
+            {
+                var resetpass = await userService.ResetPassword(resetPassword);
+                return Ok(resetpass);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
         }
 
     }

@@ -145,7 +145,6 @@ public partial class WebEcommerceContext : DbContext
 
             entity.HasOne(d => d.OrderCancellationReason).WithMany(p => p.Oders)
                 .HasForeignKey(d => d.OrderCancellationReasonId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Oder_Order_cancellation_reason");
 
             entity.HasOne(d => d.Payment).WithMany(p => p.Oders)
@@ -155,7 +154,6 @@ public partial class WebEcommerceContext : DbContext
 
             entity.HasOne(d => d.User).WithMany(p => p.Oders)
                 .HasForeignKey(d => d.UserId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Oder_User");
         });
 
@@ -201,10 +199,6 @@ public partial class WebEcommerceContext : DbContext
                 .HasMaxLength(100)
                 .IsUnicode(false)
                 .HasColumnName("method");
-            entity.Property(e => e.PaymentDate)
-                .HasColumnType("datetime")
-                .HasColumnName("payment_date");
-            entity.Property(e => e.TotalMoney).HasColumnName("total_money");
             entity.Property(e => e.UserId).HasColumnName("user_id");
         });
 

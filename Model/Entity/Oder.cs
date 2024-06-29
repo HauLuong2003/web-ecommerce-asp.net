@@ -23,17 +23,17 @@ public partial class Oder
 
     public double ShippingCost { get; set; }
 
-    public int UserId { get; set; }
+    public int? UserId { get; set; }
 
     public int PaymentId { get; set; }
 
-    public int OrderCancellationReasonId { get; set; }
+    public int? OrderCancellationReasonId { get; set; }
 
-    public virtual OrderCancellationReason OrderCancellationReason { get; set; } = null!;
+    public virtual OrderCancellationReason? OrderCancellationReason { get; set; }
 
     public virtual ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
 
     public virtual Payment Payment { get; set; } = null!;
 
-    public virtual User User { get; set; } = null!;
+    public virtual User? User { get; set; }
 }

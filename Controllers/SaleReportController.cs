@@ -32,7 +32,7 @@ namespace Web_Ecommerce_Server.Controllers
        {
            try
            {
-               var Revenue = await saleReport.GetRevenue(day, month, year);
+               var Revenue = await saleReport.GetRevenueByDay(day, month, year);
                return Ok(Revenue);
            }
            catch (Exception ex)

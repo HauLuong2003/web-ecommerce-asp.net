@@ -20,9 +20,7 @@ namespace Web_Ecommerce_Server.Reponsitory
         }
         // them san pham moi
         public async Task<Product> AddProduct(Product model)
-        {
-
-            
+        {    
             var product = new Product
             {
                 Name = model.Name,
@@ -213,7 +211,7 @@ namespace Web_Ecommerce_Server.Reponsitory
         public async Task<ServiceResponse> DeleteProduct(int id)
         {
             var product = await GetProductById(id);
-           if(product == null)
+            if(product == null)
             {
                 return new ServiceResponse(false, "not found");
             }
@@ -272,7 +270,6 @@ namespace Web_Ecommerce_Server.Reponsitory
             if (products == null || products.Count == 0)
             {
                 throw new NotImplementedException("not found");
-
             }
             return products;
         }

@@ -26,7 +26,7 @@ builder.Services.AddScoped<IUserAccount, UserAccountReponsitory>();
 builder.Services.AddScoped<IUserService, UserServiceReponsitory>();
 builder.Services.AddScoped<IUser, UserReponsitory>();
 builder.Services.AddScoped<ISaleReport, SaleReportReponsitory>();
-
+builder.Services.AddScoped<IOrderManage, OrderManageReponsitory>();
 
 //ending
 builder.Services.AddControllers()
