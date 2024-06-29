@@ -9,6 +9,7 @@ namespace Web_Ecommerce_Server.Controllers
     [ApiController]
     public class OrderController : ControllerBase
     {
+        
         private readonly IOrderManage orderManage;
         public OrderController(IOrderManage orderManage)
         {
@@ -27,7 +28,7 @@ namespace Web_Ecommerce_Server.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [HttpGet]
+        [HttpGet("status")]
         public async Task<ActionResult> GetOrderStatus(int status)
         {
             try
@@ -66,6 +67,6 @@ namespace Web_Ecommerce_Server.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
+        
     }
 }
