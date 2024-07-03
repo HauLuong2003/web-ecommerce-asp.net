@@ -67,6 +67,31 @@ namespace Web_Ecommerce_Server.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        
+        [HttpGet]
+        public async Task<ActionResult> GetOrderStatus()
+        {
+            try
+            {
+                var orderStatus = await orderManage.OrderStatus();
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPut]
+        public async Task<ActionResult> UpdateStatus(int orderId, int Status)
+        {
+            try
+            {
+                var updateStatuc = await orderManage.UpdateOrderStatus(orderId, Status);
+                return Ok(updateStatuc);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

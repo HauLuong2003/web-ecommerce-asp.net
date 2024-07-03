@@ -27,7 +27,16 @@ builder.Services.AddScoped<IUserService, UserServiceReponsitory>();
 builder.Services.AddScoped<IUser, UserReponsitory>();
 builder.Services.AddScoped<ISaleReport, SaleReportReponsitory>();
 builder.Services.AddScoped<IOrderManage, OrderManageReponsitory>();
+builder.Services.AddScoped<ICart, CartReponsitory>();
 
+
+// dang ky session
+builder.Services.AddDistributedMemoryCache(); // Adds a default in-memory implementation of IDistributedCache
+builder.Services.AddSession(options => {
+    options.IdleTimeout = TimeSpan.FromMinutes(3000); // Set session timeout
+    options.Cookie.HttpOnly = true; // Make the session cookie HttpOnly
+    options.Cookie.IsEssential = true; // Make the session cookie essential
+});
 //ending
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
@@ -51,6 +60,6 @@ app.UseAuthorization();
 
 app.MapRazorPages();
 app.MapControllers();
-
+app.UseSession();
 app.MapFallbackToFile("index.html");
 app.Run();

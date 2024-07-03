@@ -25,6 +25,8 @@ public partial class WebEcommerceContext : DbContext
 
     public virtual DbSet<OrderItem> OrderItems { get; set; }
 
+    public virtual DbSet<OrderStatus> OrderStatuses { get; set; }
+
     public virtual DbSet<Payment> Payments { get; set; }
 
     public virtual DbSet<Price> Prices { get; set; }
@@ -133,13 +135,13 @@ public partial class WebEcommerceContext : DbContext
                 .HasColumnType("datetime")
                 .HasColumnName("oder_date");
             entity.Property(e => e.OrderCancellationReasonId).HasColumnName("order_cancellation_reason_id");
+            entity.Property(e => e.OrderStatusId).HasColumnName("orderStatus_id");
             entity.Property(e => e.PaymentId).HasColumnName("payment_id");
             entity.Property(e => e.PhoneNumber)
                 .HasMaxLength(10)
                 .IsUnicode(false)
                 .HasColumnName("phone_number");
             entity.Property(e => e.ShippingCost).HasColumnName("shipping_cost");
-            entity.Property(e => e.Status).HasColumnName("status");
             entity.Property(e => e.TotalMoney).HasColumnName("total_money");
             entity.Property(e => e.UserId).HasColumnName("user_id");
 
@@ -188,6 +190,25 @@ public partial class WebEcommerceContext : DbContext
                 .HasForeignKey(d => d.PId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Order_item_Product");
+        });
+
+        modelBuilder.Entity<OrderStatus>(entity =>
+        {
+            entity.HasKey(e => e.OrderSatatusId);
+
+            entity.ToTable("OrderStatus");
+
+            entity.Property(e => e.OrderSatatusId)
+                .ValueGeneratedNever()
+                .HasColumnName("orderSatatus_id");
+            entity.Property(e => e.Status)
+                .HasMaxLength(100)
+                .HasColumnName("status");
+
+            entity.HasOne(d => d.OrderSatatus).WithOne(p => p.OrderStatus)
+                .HasForeignKey<OrderStatus>(d => d.OrderSatatusId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_OrderStatus_OrderStatus");
         });
 
         modelBuilder.Entity<Payment>(entity =>

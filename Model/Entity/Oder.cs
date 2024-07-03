@@ -15,8 +15,6 @@ public partial class Oder
 
     public string Address { get; set; } = null!;
 
-    public int Status { get; set; }
-
     public DateTime OderDate { get; set; }
 
     public double TotalMoney { get; set; }
@@ -29,9 +27,13 @@ public partial class Oder
 
     public int? OrderCancellationReasonId { get; set; }
 
+    public int? OrderStatusId { get; set; }
+
     public virtual OrderCancellationReason? OrderCancellationReason { get; set; }
 
     public virtual ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
+
+    public virtual OrderStatus? OrderStatus { get; set; }
 
     public virtual Payment Payment { get; set; } = null!;
 
