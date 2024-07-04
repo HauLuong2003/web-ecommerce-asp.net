@@ -273,6 +273,17 @@ namespace Web_Ecommerce_Server.Reponsitory
             }
             return products;
         }
+
+        public async Task<Price> GetProductPrice(int ProductId)
+        {
+            var getPrice = await webEcommerceContext.Prices.Where( p => p.PId == ProductId).FirstOrDefaultAsync();
+            if (getPrice == null)
+            {
+                throw new NotImplementedException("not found");
+
+            }
+            return getPrice;
+        }
     }
 
 }

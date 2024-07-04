@@ -1397,6 +1397,19 @@
           "lib/netstandard2.0/Mono.TextTemplating.dll": {}
         }
       },
+      "Newtonsoft.Json/8.0.1": {
+        "type": "package",
+        "compile": {
+          "lib/net45/Newtonsoft.Json.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net45/Newtonsoft.Json.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Swashbuckle.AspNetCore/6.4.0": {
         "type": "package",
         "dependencies": {
@@ -4300,6 +4313,31 @@
         "mono.texttemplating.nuspec"
       ]
     },
+    "Newtonsoft.Json/8.0.1": {
+      "sha512": "qFzqzune1D7hDz8kNavFwrJ0fv8qkwANGyUOPjP0I67DmNH04nmSCRB0g0LCIqogMKrBXjsiP43Z0E1huBvxOg==",
+      "type": "package",
+      "path": "newtonsoft.json/8.0.1",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net20/Newtonsoft.Json.dll",
+        "lib/net20/Newtonsoft.Json.xml",
+        "lib/net35/Newtonsoft.Json.dll",
+        "lib/net35/Newtonsoft.Json.xml",
+        "lib/net40/Newtonsoft.Json.dll",
+        "lib/net40/Newtonsoft.Json.xml",
+        "lib/net45/Newtonsoft.Json.dll",
+        "lib/net45/Newtonsoft.Json.xml",
+        "lib/portable-net40+sl5+wp80+win8+wpa81/Newtonsoft.Json.dll",
+        "lib/portable-net40+sl5+wp80+win8+wpa81/Newtonsoft.Json.xml",
+        "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Newtonsoft.Json.dll",
+        "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Newtonsoft.Json.xml",
+        "newtonsoft.json.8.0.1.nupkg.sha512",
+        "newtonsoft.json.nuspec",
+        "tools/install.ps1"
+      ]
+    },
     "Swashbuckle.AspNetCore/6.4.0": {
       "sha512": "eUBr4TW0up6oKDA5Xwkul289uqSMgY0xGN4pnbOIBqCcN9VKGGaPvHX3vWaG/hvocfGDP+MGzMA0bBBKz2fkmQ==",
       "type": "package",
@@ -5579,6 +5617,7 @@
       "Microsoft.EntityFrameworkCore >= 8.0.0",
       "Microsoft.EntityFrameworkCore.SqlServer >= 8.0.0",
       "Microsoft.EntityFrameworkCore.Tools >= 8.0.0",
+      "Newtonsoft.Json >= 8.0.1",
       "Swashbuckle.AspNetCore >= 6.4.0",
       "Web_Ecommerce_Cilent >= 1.0.0"
     ]
@@ -5589,11 +5628,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Project_C#\\Web_ecommerce_Server\\Web_Ecommerce_Server\\Web_Ecommerce_Server.csproj",
+      "projectUniqueName": "D:\\Project_C#\\Web_Ecommerce_Server\\Web_Ecommerce_Server\\Web_Ecommerce_Server.csproj",
       "projectName": "Web_Ecommerce_Server",
-      "projectPath": "D:\\Project_C#\\Web_ecommerce_Server\\Web_Ecommerce_Server\\Web_Ecommerce_Server.csproj",
+      "projectPath": "D:\\Project_C#\\Web_Ecommerce_Server\\Web_Ecommerce_Server\\Web_Ecommerce_Server.csproj",
       "packagesPath": "C:\\Users\\haulu\\.nuget\\packages\\",
-      "outputPath": "D:\\Project_C#\\Web_ecommerce_Server\\Web_Ecommerce_Server\\obj\\",
+      "outputPath": "D:\\Project_C#\\Web_Ecommerce_Server\\Web_Ecommerce_Server\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\haulu\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -5611,8 +5650,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "D:\\Project_C#\\Web_ecommerce_Server\\Web_Ecommerce_Cilent\\Web_Ecommerce_Cilent.csproj": {
-              "projectPath": "D:\\Project_C#\\Web_ecommerce_Server\\Web_Ecommerce_Cilent\\Web_Ecommerce_Cilent.csproj"
+            "D:\\Project_C#\\Web_Ecommerce_Server\\Web_Ecommerce_Cilent\\Web_Ecommerce_Cilent.csproj": {
+              "projectPath": "D:\\Project_C#\\Web_Ecommerce_Server\\Web_Ecommerce_Cilent\\Web_Ecommerce_Cilent.csproj"
             }
           }
         }
@@ -5654,6 +5693,10 @@
             "target": "Package",
             "version": "[8.0.0, )"
           },
+          "Newtonsoft.Json": {
+            "target": "Package",
+            "version": "[8.0.1, )"
+          },
           "Swashbuckle.AspNetCore": {
             "target": "Package",
             "version": "[6.4.0, )"
@@ -5681,5 +5724,27 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.301/PortableRuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1903",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'Newtonsoft.Json' 8.0.1 has a known high severity vulnerability, https://github.com/advisories/GHSA-5crp-9r3c-p9vr",
+      "libraryId": "Newtonsoft.Json",
+      "targetGraphs": [
+        "net8.0"
+      ]
+    },
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'Newtonsoft.Json 8.0.1' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net8.0'. This package may not be fully compatible with your project.",
+      "libraryId": "Newtonsoft.Json",
+      "targetGraphs": [
+        "net8.0"
+      ]
+    }
+  ]
 }

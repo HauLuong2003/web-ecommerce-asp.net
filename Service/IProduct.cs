@@ -16,6 +16,7 @@ namespace Web_Ecommerce_Server.Service
         Task<ServiceResponse> DeleteProduct(int id);
         Task<List<Product>> GetProductByName(string name);
         Task<List<Product>> GetProductByBrand(int brandId);
-        Task<List<Product>> GetProductByPrice(float price); 
+        Task<List<Product>> GetProductByPrice(float price);
+        Task<Price> GetProductPrice(int ProductId);
     }
 }

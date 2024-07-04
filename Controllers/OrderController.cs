@@ -67,8 +67,8 @@ namespace Web_Ecommerce_Server.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [HttpGet]
-        public async Task<ActionResult> GetOrderStatus()
+        [HttpGet("getStatus")]
+        public async Task<ActionResult> OrderStatus()
         {
             try
             {

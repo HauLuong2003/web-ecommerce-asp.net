@@ -31,6 +31,7 @@ builder.Services.AddScoped<ICart, CartReponsitory>();
 
 
 // dang ky session
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddDistributedMemoryCache(); // Adds a default in-memory implementation of IDistributedCache
 builder.Services.AddSession(options => {
     options.IdleTimeout = TimeSpan.FromMinutes(3000); // Set session timeout
