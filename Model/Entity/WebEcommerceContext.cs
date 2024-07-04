@@ -69,9 +69,7 @@ public partial class WebEcommerceContext : DbContext
         {
             entity.ToTable("Cart");
 
-            entity.Property(e => e.CartId)
-                .ValueGeneratedNever()
-                .HasColumnName("cart_id");
+            entity.Property(e => e.CartId).HasColumnName("cart_id");
             entity.Property(e => e.UserId).HasColumnName("user_id");
 
             entity.HasOne(d => d.User).WithMany(p => p.Carts)
@@ -83,9 +81,7 @@ public partial class WebEcommerceContext : DbContext
         {
             entity.ToTable("CartItem");
 
-            entity.Property(e => e.CartItemId)
-                .ValueGeneratedNever()
-                .HasColumnName("Cart_item_id");
+            entity.Property(e => e.CartItemId).HasColumnName("Cart_item_id");
             entity.Property(e => e.CartId).HasColumnName("cart_id");
             entity.Property(e => e.PId).HasColumnName("p_id");
             entity.Property(e => e.Quantity).HasColumnName("quantity");

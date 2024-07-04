@@ -44,6 +44,8 @@ builder.Services.AddControllers()
     {
         options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
     });
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
