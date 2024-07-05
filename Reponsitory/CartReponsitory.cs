@@ -29,148 +29,81 @@ namespace Web_Ecommerce_Server.Reponsitory
             _webEcommerceContext = webEcommerceContext;
 
         }
-       
+        private async Task<bool> CartItemExists(int cartId, int productId)
+        {
+            return await _webEcommerceContext.CartItems.AnyAsync(c => c.CartId == cartId &&
+                                                                     c.PId == productId);
+
+        }
         public async Task<CartItem> AddItem(CartItemToAddDto cartItemToAddDto)
         {
-            var cartId = GetCartId();
-
-            var cartItem = new CartItem
+            if (await CartItemExists(cartItemToAddDto.CartId, cartItemToAddDto.ProductId) == false)
             {
-                CartId = cartId,
-                PId = cartItemToAddDto.ProductId,
-                Quantity = cartItemToAddDto.Qty
-            };
-
-            if (_httpContextAccessor.HttpContext.User.Identity.IsAuthenticated)
-            {
-                await _webEcommerceContext.CartItems.AddAsync(cartItem);
-                await _webEcommerceContext.SaveChangesAsync();
+                var item = await (from product in _webEcommerceContext.Products
+                                  where product.PId == cartItemToAddDto.ProductId
+                                  select new CartItem
+                                  {
+                                      CartId = cartItemToAddDto.CartId,
+                                      PId = product.PId,
+                                      Quantity = product.Quantity,
+                                  }).SingleOrDefaultAsync();
+                if (item != null)
+                {
+                    var result = await _webEcommerceContext.CartItems.AddAsync(item);
+                    await _webEcommerceContext.SaveChangesAsync();
+                    return result.Entity;
+                }
             }
-            else
-            {
-                var sessionCartItems = Session.GetObjectFromJson<List<CartItem>>("CartItems") ?? new List<CartItem>();
-                sessionCartItems.Add(cartItem);
-                Session.SetObjectAsJson("CartItems", sessionCartItems);
-            }
-
-            return cartItem;
+            return null;
         }
 
         public async Task<CartItem> UpdateQty(int id, CartItemQtyUpdateDto cartItemQtyUpdateDto)
         {
-            if (_httpContextAccessor.HttpContext.User.Identity.IsAuthenticated)
+            var item = await _webEcommerceContext.CartItems.FindAsync(id);
+
+            if (item != null)
             {
-                var cartItem = await _webEcommerceContext.CartItems.FindAsync(id);
-                if (cartItem != null)
-                {
-                    cartItem.Quantity = cartItemQtyUpdateDto.Qty;
-                    await _webEcommerceContext.SaveChangesAsync();
-                }
-                return cartItem;
+                item.Quantity = cartItemQtyUpdateDto.Qty;
+                await _webEcommerceContext.SaveChangesAsync();
+                return item;
             }
-            else
-            {
-                var sessionCartItems = Session.GetObjectFromJson<List<CartItem>>("CartItems");
-                var cartItem = sessionCartItems?.FirstOrDefault(ci => ci.CartItemId == id);
-                if (cartItem != null)
-                {
-                    cartItem.Quantity = cartItemQtyUpdateDto.Qty;
-                    Session.SetObjectAsJson("CartItems", sessionCartItems);
-                }
-                return cartItem;
-            }
+
+            return null;
         }
 
-        public async Task<CartItem> DeleteItem(int id)
+        public Task<CartItem> DeleteItem(int id)
         {
-            if (_httpContextAccessor.HttpContext.User.Identity.IsAuthenticated)
-            {
-                var cartItem = await _webEcommerceContext.CartItems.FindAsync(id);
-                if (cartItem != null)
-                {
-                    _webEcommerceContext.CartItems.Remove(cartItem);
-                    await _webEcommerceContext.SaveChangesAsync();
-                }
-                return cartItem;
-            }
-            else
-            {
-                var sessionCartItems = Session.GetObjectFromJson<List<CartItem>>("CartItems");
-                var cartItem = sessionCartItems?.FirstOrDefault(ci => ci.CartItemId == id);
-                if (cartItem != null)
-                {
-                    sessionCartItems.Remove(cartItem);
-                    Session.SetObjectAsJson("CartItems", sessionCartItems);
-                }
-                return cartItem;
-            }
+            throw new NotImplementedException();
+        }
+
+            public async Task<IEnumerable<CartItem>> GetItems(int userId)
+        {
+            return await(from cart in _webEcommerceContext.Carts
+                         join cartItem in _webEcommerceContext.CartItems
+                         on cart.CartId equals cartItem.CartId
+                         where cart.UserId == userId
+                         select new CartItem
+                         {
+                             CartItemId = cartItem.CartItemId,
+                             PId = cartItem.PId,
+                             Quantity = cartItem.Quantity,
+                             CartId = cartItem.CartId
+                         }).ToListAsync();
         }
 
         public async Task<CartItem> GetItem(int id)
         {
-            if (_httpContextAccessor.HttpContext.User.Identity.IsAuthenticated)
-            {
-                return await (from cart in _webEcommerceContext.Carts
-                              join cartItem in _webEcommerceContext.CartItems
-                              on cart.CartId equals cartItem.CartId
-                              where cartItem.CartItemId == id
-                              select new CartItem
-                              {
-                                  CartItemId = cartItem.CartItemId,
-                                  PId = cartItem.PId,
-                                  Quantity = cartItem.Quantity,
-                                  CartId = cartItem.CartId,
-                                  Cart = cart,
-                                  PIdNavigation = cartItem.PIdNavigation
-                              }).SingleAsync();
-            }
-            else
-            {
-                var sessionCartItems = Session.GetObjectFromJson<List<CartItem>>("CartItems");
-                return sessionCartItems?.FirstOrDefault(ci => ci.CartItemId == id);
-            }
+            return await(from cart in _webEcommerceContext.Carts
+                         join cartItem in _webEcommerceContext.CartItems
+                         on cart.CartId equals cartItem.CartId
+                         where cartItem.CartItemId == id
+                         select new CartItem
+                         {
+                             CartItemId = cartItem.CartItemId,
+                             PId = cartItem.PId,
+                             Quantity = cartItem.Quantity,
+                             CartId = cartItem.CartId
+                         }).SingleAsync();
         }
-
-        public async Task<IEnumerable<CartItem>> GetCart(int userId)
-        {
-            if (_httpContextAccessor.HttpContext.User.Identity.IsAuthenticated)
-            {
-                return await (from cart in _webEcommerceContext.Carts
-                              join cartItem in _webEcommerceContext.CartItems
-                              on cart.CartId equals cartItem.CartId
-                              where cart.UserId == userId
-                              select new CartItem
-                              {
-                                  CartItemId = cartItem.CartItemId,
-                                  PId = cartItem.PId,
-                                  Quantity = cartItem.Quantity,
-                                  CartId = cartItem.CartId,
-                                  Cart = cart,
-                                  PIdNavigation = cartItem.PIdNavigation
-                              }).ToListAsync();
-            }
-            else
-            {
-                return Session.GetObjectFromJson<List<CartItem>>("CartItems") ?? new List<CartItem>();
-            }
-        }
-        
-        private int GetCartId()
-        {
-            var userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            if (userId != null)
-            {
-                return int.Parse(userId);
-            }
-
-            var sessionCartId = Session.GetInt32("CartId");
-            if (sessionCartId == null)
-            {
-                sessionCartId = new Random().Next(1, int.MaxValue);
-                Session.SetInt32("CartId", (int)sessionCartId);
-            }
-            return (int)sessionCartId;
-        }
-
     }
 }

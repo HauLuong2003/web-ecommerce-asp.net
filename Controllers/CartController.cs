@@ -61,7 +61,7 @@ namespace Web_Ecommerce_Server.Controllers
         [HttpGet("GetItems/{userId}")]
         public async Task<ActionResult<IEnumerable<CartItem>>> GetItems(int userId)
         {
-            var items = await _shoppingCartService.GetCart(userId);
+            var items = await _shoppingCartService.GetItems(userId);
             return Ok(items);
         }
 
