@@ -12,98 +12,195 @@ using Newtonsoft.Json;
 using Web_Ecommerce_Server.Model.DTO;
 using Microsoft.EntityFrameworkCore;
 using Web_Ecommerce_Server.Helper;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Web_Ecommerce_Server.Reponsitory
 {
     public class CartReponsitory : ICart
     {
-        private readonly IHttpContextAccessor _httpContextAccessor;
-        private ISession Session => _httpContextAccessor.HttpContext.Session;
         private readonly WebEcommerceContext _webEcommerceContext;
-
-
-        public CartReponsitory(IHttpContextAccessor httpContextAccessor, IProduct productService, WebEcommerceContext webEcommerceContext)
-        {
-            _httpContextAccessor = httpContextAccessor;
-           
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly ISession session;
+        public CartReponsitory( WebEcommerceContext webEcommerceContext, IHttpContextAccessor httpContextAccessor)
+        {       
             _webEcommerceContext = webEcommerceContext;
-
+            _httpContextAccessor = httpContextAccessor;
         }
-        private async Task<bool> CartItemExists(int cartId, int productId)
+        public async Task<bool> CartItemExists(string cartId, int productId)
         {
-            return await _webEcommerceContext.CartItems.AnyAsync(c => c.CartId == cartId &&
-                                                                     c.PId == productId);
+            var cart =  _httpContextAccessor.HttpContext.Session.GetObjectFromJson<Cart>("Cart")?? new Cart { CartId = Guid.NewGuid().ToString() };
 
-        }
-        public async Task<CartItem> AddItem(CartItemToAddDto cartItemToAddDto)
-        {
-            if (await CartItemExists(cartItemToAddDto.CartId, cartItemToAddDto.ProductId) == false)
+            if (cart != null)
             {
-                var item = await (from product in _webEcommerceContext.Products
-                                  where product.PId == cartItemToAddDto.ProductId
-                                  select new CartItem
-                                  {
-                                      CartId = cartItemToAddDto.CartId,
-                                      PId = product.PId,
-                                      Quantity = product.Quantity,
-                                  }).SingleOrDefaultAsync();
-                if (item != null)
+                return cart.Items.Any(item => item.cartId == cartId && item.PId == productId);
+            }
+
+            return false;
+        }
+        public async Task<ServiceResponse> AddItem(CartItemDto cartItemDto)
+        {
+            if ( await CartItemExists("Cart", cartItemDto.ProductId) == false)
+            {
+                string random = Guid.NewGuid().ToString();
+                var cart = _httpContextAccessor.HttpContext.Session.GetObjectFromJson<Cart>("Cart") ?? new Cart { CartId = random };
+                // var product = _webEcommerceContext.Products.FirstOrDefault(p => p.PId == productId);
+                var cartItem = cart.Items.FirstOrDefault(i => i.PId == cartItemDto.ProductId);
+                if (cartItem == null)
                 {
-                    var result = await _webEcommerceContext.CartItems.AddAsync(item);
-                    await _webEcommerceContext.SaveChangesAsync();
-                    return result.Entity;
+                    cart.Items.Add(new CartItem()
+                    {
+                        PId = cartItemDto.ProductId,
+                        cartId = random,
+                        Quantity = cartItemDto.Quantity,
+                        Price = cartItemDto.Price
+                    });
+                }
+                else
+                {
+                    cartItem.Quantity += cartItemDto.Quantity;
+                }
+                _httpContextAccessor.HttpContext.Session.SetObjectAsJson("Cart", cart);
+
+            }
+            return new ServiceResponse(true, "add to sucesss");
+        }
+        //
+
+        public async Task<CartItem> UpdateQty(UpdateCartDto updateCartDto)
+        {
+            var session = _httpContextAccessor.HttpContext.Session;
+            var cart = session.GetObjectFromJson<Cart>("Cart") ;
+
+            if (cart != null && cart.CartId ==updateCartDto.CartId  && cart.Items != null)
+            {
+                // Find the cart item to update based on productId
+                var cartItemToUpdate = cart.Items.FirstOrDefault(item => item.PId == updateCartDto.ProductId);
+
+                if (cartItemToUpdate != null)
+                {
+                    // Update the quantity of the cart item
+                    cartItemToUpdate.Quantity = updateCartDto.Quantity;
+
+                    // Update the cart in session
+                    session.SetObjectAsJson("Cart", cart);
+                    return cartItemToUpdate; // Quantity updated successfully
                 }
             }
-            return null;
+
+            return null; // Item not found or cart is empty
+        }
+        //
+        public async Task<bool> DeleteItem(string cartId,int id)
+        {
+            var session = _httpContextAccessor.HttpContext.Session;
+            var cart = session.GetObjectFromJson<Cart>("Cart") ?? new Cart { CartId = Guid.NewGuid().ToString() };
+
+            if (cart != null && cart.CartId == cartId && cart.Items != null)
+            {
+                // Find the cart item to delete
+                var itemToRemove = cart.Items.FirstOrDefault(item => item.PId == id);
+
+                if (itemToRemove != null)
+                {
+                    // Remove the item from the cart
+                    cart.Items.Remove(itemToRemove);
+
+                    // Update the cart in session
+                    session.SetObjectAsJson("Cart", cart);
+                    return true;
+                }
+             
+            }
+            return false; // Return false if item was not found or cart is empty
+
         }
 
-        public async Task<CartItem> UpdateQty(int id, CartItemQtyUpdateDto cartItemQtyUpdateDto)
+        public async Task<List<CartItem>> GetItemByUser(int userId,string cartId)
         {
-            var item = await _webEcommerceContext.CartItems.FindAsync(id);
+            var session = _httpContextAccessor.HttpContext.Session;
+            var cart = session.GetObjectFromJson<Cart>("Cart");
 
-            if (item != null)
+            if (cart != null &&cart.UserId == userId && cart.CartId == cartId && cart.Items != null)
             {
-                item.Quantity = cartItemQtyUpdateDto.Qty;
-                await _webEcommerceContext.SaveChangesAsync();
-                return item;
+                // Optionally, you can filter cart items based on userId
+                var userCartItems = cart.Items.Where(item => item.cartId == cartId).ToList(); // Adjust this to your retrieval logic
+
+                if (userCartItems != null)
+                {
+                    // Optionally, you can return the cart items or their existence
+                    return userCartItems; // Cart items found for the user
+                }
+                else
+                {
+                    return null;
+                }
             }
 
-            return null;
+            return null; // Cart items not found or cart is empty
         }
 
-        public Task<CartItem> DeleteItem(int id)
+        public async Task<List<CartItem>> GetItem(string cartId)
         {
-            throw new NotImplementedException();
+            var session = _httpContextAccessor.HttpContext.Session;
+            var cart = session.GetObjectFromJson<Cart>("Cart");
+
+            if (cart != null && cart.CartId == cartId && cart.Items != null)
+            {
+                // Optionally, you can retrieve the specific cart item based on some criteria
+                // For example, find the first cart item matching a condition
+                var cartItem = cart.Items.Where(item => item.cartId == cartId).ToList();
+                // Optionally, you can return the cart item or its existence
+                return cartItem; // Cart item found
+                
+            }
+
+            return null; // Cart item not found or cart is empty
         }
 
-            public async Task<IEnumerable<CartItem>> GetItems(int userId)
+        public async Task<ServiceResponse> AddToCart(int userId, CartItemDto cartItemDto)
         {
-            return await(from cart in _webEcommerceContext.Carts
-                         join cartItem in _webEcommerceContext.CartItems
-                         on cart.CartId equals cartItem.CartId
-                         where cart.UserId == userId
-                         select new CartItem
-                         {
-                             CartItemId = cartItem.CartItemId,
-                             PId = cartItem.PId,
-                             Quantity = cartItem.Quantity,
-                             CartId = cartItem.CartId
-                         }).ToListAsync();
+            string random = Guid.NewGuid().ToString();
+            var session = _httpContextAccessor.HttpContext.Session;
+            var cart = session.GetObjectFromJson<Cart>("Cart") ?? new Cart { CartId = random,UserId = userId };
+
+            try
+            {
+                // Check if the product already exists in the cart
+                var existingCartItem = cart.Items.FirstOrDefault(item => item.PId == cartItemDto.ProductId);
+
+                if (existingCartItem != null)
+                {
+                    // Update the quantity of the existing cart item
+                    existingCartItem.Quantity += cartItemDto.Quantity;
+                }
+                else
+                {
+                    // Add a new cart item to the cart
+                    cart.Items.Add(new CartItem
+                    {
+                        PId = cartItemDto.ProductId,
+                        cartId = random,
+                        Quantity = cartItemDto.Quantity,
+                        Price = cartItemDto.Price
+                    });
+                }
+
+                // Update the cart in session
+                session.SetObjectAsJson("Cart", cart);
+
+                return new ServiceResponse(true, "Product added to cart successfully");
+            }
+            catch (Exception ex)
+            {
+                // Handle any exceptions, log them if needed
+                return new ServiceResponse(false, $"Failed to add product to cart: {ex.Message}");
+            }
+        }
+        public async Task ClearCart(string cartId)
+        {
+            var session = _httpContextAccessor.HttpContext.Session;
+            session.Remove("Cart");
         }
 
-        public async Task<CartItem> GetItem(int id)
-        {
-            return await(from cart in _webEcommerceContext.Carts
-                         join cartItem in _webEcommerceContext.CartItems
-                         on cart.CartId equals cartItem.CartId
-                         where cartItem.CartItemId == id
-                         select new CartItem
-                         {
-                             CartItemId = cartItem.CartItemId,
-                             PId = cartItem.PId,
-                             Quantity = cartItem.Quantity,
-                             CartId = cartItem.CartId
-                         }).SingleAsync();
-        }
     }
 }

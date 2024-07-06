@@ -87,7 +87,10 @@ namespace Web_Ecommerce_Server.Reponsitory
                 return await webEcommerceContext.Products.ToListAsync();
             }
         }
-        
+        public async Task<List<Product>> GetAll()
+        {
+                return await webEcommerceContext.Products.ToListAsync();                  
+        }
         // lay thong tin san pham
         public async Task<Product> GetProductById(int productId)
         {
@@ -283,6 +286,11 @@ namespace Web_Ecommerce_Server.Reponsitory
 
             }
             return getPrice;
+        }
+        public async Task<Price> GetPrice()
+        {
+            var GetPrice = await webEcommerceContext.Prices.FirstOrDefaultAsync();
+            return GetPrice;
         }
     }
 

@@ -11,7 +11,7 @@
         "projectName": "Web_Ecommerce_Cilent",
         "projectPath": "D:\\Project_C#\\Web_Ecommerce_Server\\Web_Ecommerce_Cilent\\Web_Ecommerce_Cilent.csproj",
         "packagesPath": "C:\\Users\\haulu\\.nuget\\packages\\",
-        "outputPath": "D:\\Project_C#\\Web_Ecommerce_Server\\Web_Ecommerce_Cilent\\obj\\",
+        "outputPath": "D:\\Project_C#\\Web_ecommerce_Server\\Web_Ecommerce_Cilent\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\haulu\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -106,7 +106,7 @@
         "projectName": "Web_Ecommerce_Server",
         "projectPath": "D:\\Project_C#\\Web_Ecommerce_Server\\Web_Ecommerce_Server\\Web_Ecommerce_Server.csproj",
         "packagesPath": "C:\\Users\\haulu\\.nuget\\packages\\",
-        "outputPath": "D:\\Project_C#\\Web_Ecommerce_Server\\Web_Ecommerce_Server\\obj\\",
+        "outputPath": "D:\\Project_C#\\Web_ecommerce_Server\\Web_Ecommerce_Server\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\haulu\\AppData\\Roaming\\NuGet\\NuGet.Config",

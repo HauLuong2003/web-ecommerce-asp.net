@@ -15,10 +15,12 @@ builder.Services.AddRazorPages();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 //starting
+//dang ky su dung database
 builder.Services.AddDbContext<WebEcommerceContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("Default") ?? throw new InvalidOperationException("connection string not found"));
 });
+
 builder.Services.AddScoped<IProduct, ProductReponsitory>();
 builder.Services.AddScoped <IValidationService, ValidationService>();
 builder.Services.AddScoped<IBrand, BrandReponsitory>();

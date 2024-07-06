@@ -33,8 +33,6 @@ public partial class User
 
     public string? ResetPasswordToken { get; set; }
 
-    public virtual ICollection<Cart> Carts { get; set; } = new List<Cart>();
-
     public virtual ICollection<Oder> Oders { get; set; } = new List<Oder>();
 
     public virtual ICollection<Review> Reviews { get; set; } = new List<Review>();

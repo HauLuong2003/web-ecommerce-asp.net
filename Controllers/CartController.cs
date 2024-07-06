@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Web_Ecommerce_Server.Helper;
 using Web_Ecommerce_Server.Model.DTO;
 using Web_Ecommerce_Server.Model.Entity;
 using Web_Ecommerce_Server.Model.Request;
@@ -13,58 +14,75 @@ namespace Web_Ecommerce_Server.Controllers
     public class CartController : ControllerBase
     {
         private readonly ICart _shoppingCartService;
-
-        public CartController(ICart shoppingCartService)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public CartController(ICart shoppingCartService, IHttpContextAccessor contextAccessor)
         {
             _shoppingCartService = shoppingCartService;
+            _httpContextAccessor = contextAccessor;
         }
-        [HttpPost("AddItem")]
-        public async Task<ActionResult<CartItem>> AddItem(CartItemToAddDto cartItemToAddDto)
+        [HttpGet("get-cart")]
+        public ActionResult<Cart> GetCart()
         {
-            var item = await _shoppingCartService.AddItem(cartItemToAddDto);
-            return CreatedAtAction(nameof(GetItem), new { id = item.PId }, item);
+            var session = _httpContextAccessor.HttpContext.Session;
+            var cart = session.GetObjectFromJson<Cart>("Cart");
+            return Ok(cart);
         }
 
-        [HttpPut("UpdateQty/{id}")]
-        public async Task<ActionResult<CartItem>> UpdateQty(int id, CartItemQtyUpdateDto cartItemQtyUpdateDto)
+        [HttpPost("add-to-cart")]
+        public async Task<ActionResult> AddToCart(CartItemDto cartItemDto) 
         {
-            var item = await _shoppingCartService.UpdateQty(id, cartItemQtyUpdateDto);
-            if (item == null)
+            var add = await _shoppingCartService.AddItem(cartItemDto);
+            return Ok(add);
+        }
+        // xoa item
+        [HttpDelete("delete-item")]
+        public async Task<ActionResult> DeleteCartItem(string cartId,int productId)
+        {
+            var deleted = await _shoppingCartService.DeleteItem(cartId,productId);
+
+            if (deleted)
             {
-                return NotFound();
+                return Ok("Item deleted successfully");
             }
-            return Ok(item);
-        }
-
-        [HttpDelete("DeleteItem/{id}")]
-        public async Task<ActionResult<CartItem>> DeleteItem(int id)
-        {
-            var item = await _shoppingCartService.DeleteItem(id);
-            if (item == null)
+            else
             {
-                return NotFound();
+                return NotFound("Item not found in cart");
             }
-            return Ok(item);
         }
-
-        [HttpGet("GetItem/{id}")]
-        public async Task<ActionResult<CartItem>> GetItem(int id)
+        [HttpPut("update-quantity")]
+        public async Task<ActionResult> UpdateCartItemQuantity(UpdateCartDto updateCartDto)
         {
-            var item = await _shoppingCartService.GetItem(id);
-            if (item == null)
-            {
-                return NotFound();
-            }
-            return Ok(item);
-        }
+            var updated = await _shoppingCartService.UpdateQty(updateCartDto);
 
-        [HttpGet("GetItems/{userId}")]
-        public async Task<ActionResult<IEnumerable<CartItem>>> GetItems(int userId)
+            return Ok(updated);
+        }
+        [HttpGet("get-item/{cartId}")]
+        public async Task<ActionResult> GetCartItem(string cartId)
         {
-            var items = await _shoppingCartService.GetItems(userId);
-            return Ok(items);
+            var found = await _shoppingCartService.GetItem(cartId);
+                return Ok(found);
+          
         }
 
+        [HttpPost("add-to-cart/{userId}")]
+        public async Task<ActionResult> AddToCart(int userId, [FromBody] CartItemDto cartItemDto)
+        {
+            var response = await _shoppingCartService.AddToCart(userId, cartItemDto);
 
+            return Ok(response);
+        }
+        [HttpGet("get-items-by-user")]
+        public async Task<ActionResult> GetCartItemsByUser(int userId, string cartId)
+        {
+            var found = await _shoppingCartService.GetItemByUser(userId, cartId);
+             return Ok(found);
+
+        }
+        [HttpDelete("delete-cart")]
+        public async Task<ActionResult>DeleteCart(string cartId)
+        {
+            var deleteCart =  _shoppingCartService.ClearCart(cartId);
+            return Ok(deleteCart);
+        }
     }
 }

@@ -17,10 +17,6 @@ public partial class WebEcommerceContext : DbContext
 
     public virtual DbSet<Brand> Brands { get; set; }
 
-    public virtual DbSet<Cart> Carts { get; set; }
-
-    public virtual DbSet<CartItem> CartItems { get; set; }
-
     public virtual DbSet<Detail> Details { get; set; }
 
     public virtual DbSet<Oder> Oders { get; set; }
@@ -63,36 +59,6 @@ public partial class WebEcommerceContext : DbContext
             entity.Property(e => e.BrandName)
                 .HasMaxLength(100)
                 .HasColumnName("brand_name");
-        });
-
-        modelBuilder.Entity<Cart>(entity =>
-        {
-            entity.ToTable("Cart");
-
-            entity.Property(e => e.CartId).HasColumnName("cart_id");
-            entity.Property(e => e.UserId).HasColumnName("user_id");
-
-            entity.HasOne(d => d.User).WithMany(p => p.Carts)
-                .HasForeignKey(d => d.UserId)
-                .HasConstraintName("FK_Cart_User");
-        });
-
-        modelBuilder.Entity<CartItem>(entity =>
-        {
-            entity.ToTable("CartItem");
-
-            entity.Property(e => e.CartItemId).HasColumnName("Cart_item_id");
-            entity.Property(e => e.CartId).HasColumnName("cart_id");
-            entity.Property(e => e.PId).HasColumnName("p_id");
-            entity.Property(e => e.Quantity).HasColumnName("quantity");
-
-            entity.HasOne(d => d.Cart).WithMany(p => p.CartItems)
-                .HasForeignKey(d => d.CartId)
-                .HasConstraintName("FK_CartItem_CartItem");
-
-            entity.HasOne(d => d.PIdNavigation).WithMany(p => p.CartItems)
-                .HasForeignKey(d => d.PId)
-                .HasConstraintName("FK_CartItem_Product");
         });
 
         modelBuilder.Entity<Detail>(entity =>
