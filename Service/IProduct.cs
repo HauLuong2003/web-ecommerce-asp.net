@@ -9,7 +9,8 @@ namespace Web_Ecommerce_Server.Service
         //tao interface addProduct
         Task<Product> AddProduct( Product model);
         //tao interface getAllProduct
-        Task<List<Product>> GetAllProducts(bool featuredProducts);
+        Task<List<Product>> GetProductfeatured(bool featuredProducts);
+        Task<List<Product>> GetAllProduct();
         // tao interface getproduct detail
         Task<Product> GetProductById(int productId);
         Task<Product> UpdateProduct(int id, [FromBody] Product product);

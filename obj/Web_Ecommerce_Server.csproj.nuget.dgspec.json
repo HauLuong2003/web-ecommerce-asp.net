@@ -11,7 +11,7 @@
         "projectName": "Web_Ecommerce_Cilent",
         "projectPath": "D:\\Project_C#\\Web_Ecommerce_Server\\Web_Ecommerce_Cilent\\Web_Ecommerce_Cilent.csproj",
         "packagesPath": "C:\\Users\\haulu\\.nuget\\packages\\",
-        "outputPath": "D:\\Project_C#\\Web_ecommerce_Server\\Web_Ecommerce_Cilent\\obj\\",
+        "outputPath": "D:\\Project_C#\\Web_Ecommerce_Server\\Web_Ecommerce_Cilent\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\haulu\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -58,13 +58,13 @@
             "Microsoft.NET.ILLink.Tasks": {
               "suppressParent": "All",
               "target": "Package",
-              "version": "[8.0.6, )",
+              "version": "[8.0.7, )",
               "autoReferenced": true
             },
             "Microsoft.NET.Sdk.WebAssembly.Pack": {
               "suppressParent": "All",
               "target": "Package",
-              "version": "[8.0.6, )",
+              "version": "[8.0.7, )",
               "autoReferenced": true
             }
           },
@@ -82,7 +82,7 @@
           "downloadDependencies": [
             {
               "name": "Microsoft.NETCore.App.Runtime.Mono.browser-wasm",
-              "version": "[8.0.6, 8.0.6]"
+              "version": "[8.0.7, 8.0.7]"
             }
           ],
           "frameworkReferences": {
@@ -90,7 +90,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.301/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303/PortableRuntimeIdentifierGraph.json"
         }
       },
       "runtimes": {
@@ -106,7 +106,7 @@
         "projectName": "Web_Ecommerce_Server",
         "projectPath": "D:\\Project_C#\\Web_Ecommerce_Server\\Web_Ecommerce_Server\\Web_Ecommerce_Server.csproj",
         "packagesPath": "C:\\Users\\haulu\\.nuget\\packages\\",
-        "outputPath": "D:\\Project_C#\\Web_ecommerce_Server\\Web_Ecommerce_Server\\obj\\",
+        "outputPath": "D:\\Project_C#\\Web_Ecommerce_Server\\Web_Ecommerce_Server\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\haulu\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -195,7 +195,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.301/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

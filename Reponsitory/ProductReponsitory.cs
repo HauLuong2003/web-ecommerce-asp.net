@@ -76,7 +76,7 @@ namespace Web_Ecommerce_Server.Reponsitory
         }
 
         // lay san pham noi bat
-        public async Task<List<Product>> GetAllProducts(bool featuredProducts)
+        public async Task<List<Product>> GetProductfeatured(bool featuredProducts)
         {
             if (featuredProducts)
             { 
@@ -87,7 +87,7 @@ namespace Web_Ecommerce_Server.Reponsitory
                 return await webEcommerceContext.Products.ToListAsync();
             }
         }
-        public async Task<List<Product>> GetAll()
+        public async Task<List<Product>> GetAllProduct()
         {
                 return await webEcommerceContext.Products.ToListAsync();                  
         }
@@ -287,9 +287,10 @@ namespace Web_Ecommerce_Server.Reponsitory
             }
             return getPrice;
         }
-        public async Task<Price> GetPrice()
+        public async Task<List<Price>> GetPrice()
         {
-            var GetPrice = await webEcommerceContext.Prices.FirstOrDefaultAsync();
+
+            var GetPrice = await webEcommerceContext.Prices.ToListAsync();
             return GetPrice;
         }
     }

@@ -18,17 +18,30 @@ namespace Web_Ecommerce_Server.Controllers
             this.productService = productService;
         }
         [Produces(MediaTypeNames.Application.Json)]
-        [HttpGet]
-        public async Task<ActionResult<List<Product>>> GetAllProducts(bool featured)
+        [HttpGet("featured")]
+        public async Task<ActionResult<List<Product>>> GetProductfeatured(bool featured)
         {
             try
             {
-                var products = await productService.GetAllProducts(featured);
+                var products = await productService.GetProductfeatured(featured);
                 return Ok(products);
             }
             catch (Exception ex)
             {
                    return BadRequest(ex.Message);
+            }
+        }
+        [HttpGet("getAll")]
+        public async Task<ActionResult> GetAllProduct()
+        {
+            try
+            {
+                var products = await productService.GetAllProduct();
+                return Ok(products);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
             }
         }
         [HttpPost]

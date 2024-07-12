@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Web_Ecommerce_Server.Helper;
-using Web_Ecommerce_Server.Model.DTO;
 using Web_Ecommerce_Server.Model.Entity;
 using Web_Ecommerce_Server.Model.Request;
 using Web_Ecommerce_Server.Reponsitory;
@@ -65,7 +64,7 @@ namespace Web_Ecommerce_Server.Controllers
         }
 
         [HttpPost("add-to-cart/{userId}")]
-        public async Task<ActionResult> AddToCart(int userId, [FromBody] CartItemDto cartItemDto)
+        public async Task<ActionResult> AddToCart(int userId,  CartItemDto cartItemDto)
         {
             var response = await _shoppingCartService.AddToCart(userId, cartItemDto);
 
