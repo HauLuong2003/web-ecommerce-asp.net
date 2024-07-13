@@ -4,14 +4,12 @@ using System.Net;
 using System.Text.Json;
 using Web_Ecommerce_Server.Model.Entity;
 using Web_Ecommerce_Server.Service;
-using Microsoft.AspNetCore.Session;
 using Web_Ecommerce_Server.Model.Request;
-using System.Security.Claims;
 using Web_Ecommerce_Server.Response;
-using Newtonsoft.Json;
 using Microsoft.EntityFrameworkCore;
 using Web_Ecommerce_Server.Helper;
 using Microsoft.AspNetCore.Mvc;
+using Web_Ecommerce_Server.Model;
 
 namespace Web_Ecommerce_Server.Reponsitory
 {

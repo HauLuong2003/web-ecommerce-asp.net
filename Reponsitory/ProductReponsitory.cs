@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using System.Security.Cryptography;
+using Web_Ecommerce_Server.Model;
 using Web_Ecommerce_Server.Model.Entity;
 using Web_Ecommerce_Server.Response;
 using Web_Ecommerce_Server.Service;
@@ -20,12 +21,12 @@ namespace Web_Ecommerce_Server.Reponsitory
         }
         // them san pham moi
         public async Task<Product> AddProduct(Product model)
-        {    
+        {
             var product = new Product
             {
                 Name = model.Name,
                 Description = model.Description,
-                Quantity = model.Quantity,               
+                Quantity = model.Quantity,
                 Featured = model.Featured,
                 BrandId = model.BrandId, // Set BrandId to link with existing Brand
                 Image1 = model.Image1,
@@ -42,9 +43,9 @@ namespace Web_Ecommerce_Server.Reponsitory
                     Price1 = priceRequest.Price1,
                     CreateAt = DateTime.Now,
                     UpdateAt = DateTime.Now,
-                    PId = model.PId
+                    PIdNavigation = product
                 };
-               webEcommerceContext.Prices.Add(price);
+                webEcommerceContext.Prices.Add(price);
             }
             // Add Details associated with the product
             foreach (var detailRequest in model.Details)
@@ -64,12 +65,12 @@ namespace Web_Ecommerce_Server.Reponsitory
                     Size = detailRequest.Size,
                     Pin = detailRequest.Pin,
                     Weight = detailRequest.Weight,
-                    PId = model.PId
+                    PIdNavigation = product
                 };
                 webEcommerceContext.Details.Add(detail);
             }
             webEcommerceContext.Products.Add(product);
-          
+
             await webEcommerceContext.SaveChangesAsync();
 
             return product;
@@ -80,7 +81,8 @@ namespace Web_Ecommerce_Server.Reponsitory
         {
             if (featuredProducts)
             { 
-                return await webEcommerceContext.Products.Where(_ => _.Featured).ToListAsync();
+                return await webEcommerceContext.Products.Where(_ => _.Featured)
+                                        .Include(p => p.Prices).ToListAsync();
             }
             else
             {
@@ -89,7 +91,8 @@ namespace Web_Ecommerce_Server.Reponsitory
         }
         public async Task<List<Product>> GetAllProduct()
         {
-                return await webEcommerceContext.Products.ToListAsync();                  
+                return await webEcommerceContext.Products
+                                .Include(p => p.Prices).ToListAsync();                  
         }
         // lay thong tin san pham
         public async Task<Product> GetProductById(int productId)

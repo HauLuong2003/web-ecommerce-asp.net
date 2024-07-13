@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using Web_Ecommerce_Server.Model.Entity;
 
-namespace Web_Ecommerce_Server.Model.Entity;
+namespace Web_Ecommerce_Server.Model;
 
 public partial class WebEcommerceContext : DbContext
 {
