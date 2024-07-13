@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Web_Ecommerce_Server.Model;
+using Web_Ecommerce_Server.Model.Entity;
 using Web_Ecommerce_Server.Response;
 using Web_Ecommerce_Server.Service;
 
@@ -34,7 +34,7 @@ namespace Web_Ecommerce_Server.Reponsitory
         {
             if (month < 1 || day < 1 || year < 1)
             {
-                throw new NotImplementedException(" không chính xác");
+                throw new NotImplementedException(" day month year don't ");
             }
             var revenueDetails = await (from oi in webEcommerceContext.OrderItems
                                         join o in webEcommerceContext.Oders on oi.OderId equals o.OrderId

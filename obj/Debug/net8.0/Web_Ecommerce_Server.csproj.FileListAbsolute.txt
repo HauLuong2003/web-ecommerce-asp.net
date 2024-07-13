@@ -152,7 +152,5 @@ D:\Project_C#\Web_Ecommerce_Server\Web_Ecommerce_Server\bin\Debug\net8.0\Newtons
 D:\Project_C#\Web_Ecommerce_Server\Web_Ecommerce_Server\bin\Debug\net8.0\Web_Ecommerce_Cilent.staticwebassets.runtime.json
 D:\Project_C#\Web_Ecommerce_Server\Web_Ecommerce_Server\bin\Debug\net8.0\Microsoft.AspNetCore.Components.WebAssembly.dll
 D:\Project_C#\Web_Ecommerce_Server\Web_Ecommerce_Server\bin\Debug\net8.0\Microsoft.JSInterop.WebAssembly.dll
-D:\Project_C#\Web_Ecommerce_Server\Web_Ecommerce_Server\bin\Debug\net8.0\Ecommerce_Library.dll
 D:\Project_C#\Web_Ecommerce_Server\Web_Ecommerce_Server\bin\Debug\net8.0\Web_Ecommerce_Cilent.dll
-D:\Project_C#\Web_Ecommerce_Server\Web_Ecommerce_Server\bin\Debug\net8.0\Ecommerce_Library.pdb
 D:\Project_C#\Web_Ecommerce_Server\Web_Ecommerce_Server\bin\Debug\net8.0\Web_Ecommerce_Cilent.pdb

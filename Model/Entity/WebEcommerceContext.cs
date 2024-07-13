@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
-using Web_Ecommerce_Server.Model.Entity;
 
-namespace Web_Ecommerce_Server.Model;
+namespace Web_Ecommerce_Server.Model.Entity;
 
 public partial class WebEcommerceContext : DbContext
 {
@@ -150,6 +149,11 @@ public partial class WebEcommerceContext : DbContext
                 .HasForeignKey(d => d.OrderCancellationReasonId)
                 .HasConstraintName("FK_Oder_Order_cancellation_reason");
 
+            entity.HasOne(d => d.OrderStatus).WithMany(p => p.Oders)
+                .HasForeignKey(d => d.OrderStatusId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Oder_OrderStatus");
+
             entity.HasOne(d => d.Payment).WithMany(p => p.Oders)
                 .HasForeignKey(d => d.PaymentId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
@@ -205,11 +209,6 @@ public partial class WebEcommerceContext : DbContext
             entity.Property(e => e.Status)
                 .HasMaxLength(100)
                 .HasColumnName("status");
-
-            entity.HasOne(d => d.OrderSatatus).WithOne(p => p.OrderStatus)
-                .HasForeignKey<OrderStatus>(d => d.OrderSatatusId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_OrderStatus_OrderStatus");
         });
 
         modelBuilder.Entity<Payment>(entity =>

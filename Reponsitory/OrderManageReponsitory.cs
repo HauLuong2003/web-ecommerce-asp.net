@@ -4,7 +4,6 @@ using Web_Ecommerce_Server.Model;
 using Web_Ecommerce_Server.Model.Entity;
 using Web_Ecommerce_Server.Response;
 using Web_Ecommerce_Server.Service;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace Web_Ecommerce_Server.Reponsitory
 {

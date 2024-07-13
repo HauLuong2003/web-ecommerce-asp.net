@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography;
-using Web_Ecommerce_Server.Model;
 using Web_Ecommerce_Server.Model.Entity;
 using Web_Ecommerce_Server.Model.Request;
 using Web_Ecommerce_Server.Response;

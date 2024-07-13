@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
-using Web_Ecommerce_Server.Model;
+
 using Web_Ecommerce_Server.Model.Entity;
 using Web_Ecommerce_Server.Response;
 using Web_Ecommerce_Server.Service;
@@ -30,7 +30,8 @@ namespace Web_Ecommerce_Server.Reponsitory
         // lay tat ca thuong hieu
         public async Task<List<Brand>> GetAllBrands()
         {
-            return await webEcommerceContext.Brands.ToListAsync();
+            var brand =  await webEcommerceContext.Brands.ToListAsync();
+            return brand;
         }
         //update brand
         public async Task<Brand> UpdateBrand(int id,Brand brand)

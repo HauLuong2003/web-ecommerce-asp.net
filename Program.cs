@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
-using Web_Ecommerce_Server.Model;
+using Web_Ecommerce_Server.Model.Entity;
 using Web_Ecommerce_Server.Reponsitory;
 using Web_Ecommerce_Server.Service;
 
