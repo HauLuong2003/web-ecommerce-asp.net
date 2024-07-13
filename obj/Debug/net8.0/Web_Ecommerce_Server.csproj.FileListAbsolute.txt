@@ -154,3 +154,5 @@ D:\Project_C#\Web_Ecommerce_Server\Web_Ecommerce_Server\bin\Debug\net8.0\Microso
 D:\Project_C#\Web_Ecommerce_Server\Web_Ecommerce_Server\bin\Debug\net8.0\Microsoft.JSInterop.WebAssembly.dll
 D:\Project_C#\Web_Ecommerce_Server\Web_Ecommerce_Server\bin\Debug\net8.0\Web_Ecommerce_Cilent.dll
 D:\Project_C#\Web_Ecommerce_Server\Web_Ecommerce_Server\bin\Debug\net8.0\Web_Ecommerce_Cilent.pdb
+D:\Project_C#\Web_Ecommerce_Server\Web_Ecommerce_Server\bin\Debug\net8.0\Ecommerce_Models.dll
+D:\Project_C#\Web_Ecommerce_Server\Web_Ecommerce_Server\bin\Debug\net8.0\Ecommerce_Models.pdb

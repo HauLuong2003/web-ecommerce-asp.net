@@ -2,8 +2,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Web_Ecommerce_Server.Model.Entity;
-using Web_Ecommerce_Server.Model.Request;
+using Ecommerce_Models.Model.Entity;
+using Ecommerce_Models.Model.Request;
 using Web_Ecommerce_Server.Service;
 
 namespace Web_Ecommerce_Server.Controllers

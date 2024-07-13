@@ -4,14 +4,14 @@
     "D:\\Project_C#\\Web_Ecommerce_Server\\Web_Ecommerce_Server\\Web_Ecommerce_Server.csproj": {}
   },
   "projects": {
-    "D:\\Project_C#\\Web_Ecommerce_Server\\Ecoomerce_Library\\Ecommerce_Library.csproj": {
+    "D:\\Project_C#\\Web_Ecommerce_Server\\Ecommerce_Models\\Ecommerce_Models.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Project_C#\\Web_Ecommerce_Server\\Ecoomerce_Library\\Ecommerce_Library.csproj",
-        "projectName": "Ecommerce_Library",
-        "projectPath": "D:\\Project_C#\\Web_Ecommerce_Server\\Ecoomerce_Library\\Ecommerce_Library.csproj",
+        "projectUniqueName": "D:\\Project_C#\\Web_Ecommerce_Server\\Ecommerce_Models\\Ecommerce_Models.csproj",
+        "projectName": "Ecommerce_Models",
+        "projectPath": "D:\\Project_C#\\Web_Ecommerce_Server\\Ecommerce_Models\\Ecommerce_Models.csproj",
         "packagesPath": "C:\\Users\\haulu\\.nuget\\packages\\",
-        "outputPath": "D:\\Project_C#\\Web_Ecommerce_Server\\Ecoomerce_Library\\obj\\",
+        "outputPath": "D:\\Project_C#\\Web_Ecommerce_Server\\Ecommerce_Models\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\haulu\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -90,8 +90,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "D:\\Project_C#\\Web_Ecommerce_Server\\Ecoomerce_Library\\Ecommerce_Library.csproj": {
-                "projectPath": "D:\\Project_C#\\Web_Ecommerce_Server\\Ecoomerce_Library\\Ecommerce_Library.csproj"
+              "D:\\Project_C#\\Web_Ecommerce_Server\\Ecommerce_Models\\Ecommerce_Models.csproj": {
+                "projectPath": "D:\\Project_C#\\Web_Ecommerce_Server\\Ecommerce_Models\\Ecommerce_Models.csproj"
               }
             }
           }
@@ -189,8 +189,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "D:\\Project_C#\\Web_Ecommerce_Server\\Ecoomerce_Library\\Ecommerce_Library.csproj": {
-                "projectPath": "D:\\Project_C#\\Web_Ecommerce_Server\\Ecoomerce_Library\\Ecommerce_Library.csproj"
+              "D:\\Project_C#\\Web_Ecommerce_Server\\Ecommerce_Models\\Ecommerce_Models.csproj": {
+                "projectPath": "D:\\Project_C#\\Web_Ecommerce_Server\\Ecommerce_Models\\Ecommerce_Models.csproj"
               },
               "D:\\Project_C#\\Web_Ecommerce_Server\\Web_Ecommerce_Cilent\\Web_Ecommerce_Cilent.csproj": {
                 "projectPath": "D:\\Project_C#\\Web_Ecommerce_Server\\Web_Ecommerce_Cilent\\Web_Ecommerce_Cilent.csproj"

@@ -1,12 +1,13 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using System.Net;
-using Web_Ecommerce_Server.Model.Entity;
+using Ecommerce_Models.Model.Entity;
 using Web_Ecommerce_Server.Service;
-using Web_Ecommerce_Server.Model.Request;
+using Ecommerce_Models.Model.Request;
 using Web_Ecommerce_Server.Response;
 using Microsoft.EntityFrameworkCore;
 using Web_Ecommerce_Server.Helper;
+using Web_Ecommerce_Server.Model;
 
 
 namespace Web_Ecommerce_Server.Reponsitory

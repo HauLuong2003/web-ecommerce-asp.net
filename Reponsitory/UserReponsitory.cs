@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Web_Ecommerce_Server.Model.Entity;
+using Web_Ecommerce_Server.Model;
+using Ecommerce_Models.Model.Entity;
 using Web_Ecommerce_Server.Response;
 using Web_Ecommerce_Server.Service;
 
@@ -48,7 +49,7 @@ namespace Web_Ecommerce_Server.Reponsitory
         //lấy thông tin người dùng theo name 
         public async Task<List<User>> GetUserByName(string name)
         {
-            if (name == null)
+            if (string.IsNullOrEmpty(name))
             {
                 throw new NotImplementedException("not name");
             }
@@ -65,7 +66,7 @@ namespace Web_Ecommerce_Server.Reponsitory
         public async Task<User> GetUserByPhone(string phone)
         {
             //neu thong tin sdt rong thi 
-            if (!string.IsNullOrEmpty(phone))
+            if (string.IsNullOrEmpty(phone))
             {
                 throw new NotImplementedException("not phone");
             }

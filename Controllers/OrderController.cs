@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Web_Ecommerce_Server.Model.Entity;
+using Ecommerce_Models.Model.Entity;
 using Web_Ecommerce_Server.Service;
 
 namespace Web_Ecommerce_Server.Controllers

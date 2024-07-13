@@ -1,7 +1,7 @@
 ﻿
 using Microsoft.AspNetCore.Mvc;
-using Web_Ecommerce_Server.Model.Entity;
-using Web_Ecommerce_Server.Model.Request;
+using Ecommerce_Models.Model.Entity;
+using Ecommerce_Models.Model.Request;
 using Web_Ecommerce_Server.Response;
 
 namespace Web_Ecommerce_Server.Service

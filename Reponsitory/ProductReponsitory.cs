@@ -2,7 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using System.Security.Cryptography;
-using Web_Ecommerce_Server.Model.Entity;
+using Web_Ecommerce_Server.Model;
+using Ecommerce_Models.Model.Entity;
 using Web_Ecommerce_Server.Response;
 using Web_Ecommerce_Server.Service;
 
@@ -250,7 +251,7 @@ namespace Web_Ecommerce_Server.Reponsitory
         // lấy sản phẩm theo thương hiệu
         public async Task<List<Product>> GetProductByBrand(int brandId)
         {           
-            var productBrand= await webEcommerceContext.Products
+            var productBrand= await webEcommerceContext.Products                           
                             .Where(p => p.BrandId == brandId)
                             .ToListAsync();
             if (productBrand == null)

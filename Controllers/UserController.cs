@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Web_Ecommerce_Server.Model.Entity;
+using Ecommerce_Models.Model.Entity;
 using Web_Ecommerce_Server.Service;
 
 namespace Web_Ecommerce_Server.Controllers
@@ -58,7 +58,7 @@ namespace Web_Ecommerce_Server.Controllers
         {
             try
             {
-                var getUserByName = await user.GetUserByPhone(name);
+                var getUserByName = await user.GetUserByName(name);
                 return Ok(getUserByName);
             }
             catch (Exception e)

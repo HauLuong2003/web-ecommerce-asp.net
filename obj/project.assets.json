@@ -2098,21 +2098,21 @@
           }
         }
       },
-      "Ecommerce_Library/1.0.0": {
+      "Ecommerce_Models/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "compile": {
-          "bin/placeholder/Ecommerce_Library.dll": {}
+          "bin/placeholder/Ecommerce_Models.dll": {}
         },
         "runtime": {
-          "bin/placeholder/Ecommerce_Library.dll": {}
+          "bin/placeholder/Ecommerce_Models.dll": {}
         }
       },
       "Web_Ecommerce_Cilent/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
-          "Ecommerce_Library": "1.0.0",
+          "Ecommerce_Models": "1.0.0",
           "Microsoft.AspNetCore.Components.WebAssembly": "8.0.0"
         },
         "compile": {
@@ -5615,10 +5615,10 @@
         "useSharedDesignerContext.txt"
       ]
     },
-    "Ecommerce_Library/1.0.0": {
+    "Ecommerce_Models/1.0.0": {
       "type": "project",
-      "path": "../Ecoomerce_Library/Ecommerce_Library.csproj",
-      "msbuildProject": "../Ecoomerce_Library/Ecommerce_Library.csproj"
+      "path": "../Ecommerce_Models/Ecommerce_Models.csproj",
+      "msbuildProject": "../Ecommerce_Models/Ecommerce_Models.csproj"
     },
     "Web_Ecommerce_Cilent/1.0.0": {
       "type": "project",
@@ -5628,7 +5628,7 @@
   },
   "projectFileDependencyGroups": {
     "net8.0": [
-      "Ecommerce_Library >= 1.0.0",
+      "Ecommerce_Models >= 1.0.0",
       "Microsoft.AspNetCore.Components.WebAssembly.Server >= 8.0.0",
       "Microsoft.AspNetCore.Session >= 2.1.0",
       "Microsoft.EntityFrameworkCore >= 8.0.0",
@@ -5649,7 +5649,7 @@
       "projectName": "Web_Ecommerce_Server",
       "projectPath": "D:\\Project_C#\\Web_Ecommerce_Server\\Web_Ecommerce_Server\\Web_Ecommerce_Server.csproj",
       "packagesPath": "C:\\Users\\haulu\\.nuget\\packages\\",
-      "outputPath": "D:\\Project_C#\\Web_ecommerce_Server\\Web_Ecommerce_Server\\obj\\",
+      "outputPath": "D:\\Project_C#\\Web_Ecommerce_Server\\Web_Ecommerce_Server\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\haulu\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -5667,8 +5667,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "D:\\Project_C#\\Web_Ecommerce_Server\\Ecoomerce_Library\\Ecommerce_Library.csproj": {
-              "projectPath": "D:\\Project_C#\\Web_Ecommerce_Server\\Ecoomerce_Library\\Ecommerce_Library.csproj"
+            "D:\\Project_C#\\Web_Ecommerce_Server\\Ecommerce_Models\\Ecommerce_Models.csproj": {
+              "projectPath": "D:\\Project_C#\\Web_Ecommerce_Server\\Ecommerce_Models\\Ecommerce_Models.csproj"
             },
             "D:\\Project_C#\\Web_Ecommerce_Server\\Web_Ecommerce_Cilent\\Web_Ecommerce_Cilent.csproj": {
               "projectPath": "D:\\Project_C#\\Web_Ecommerce_Server\\Web_Ecommerce_Cilent\\Web_Ecommerce_Cilent.csproj"

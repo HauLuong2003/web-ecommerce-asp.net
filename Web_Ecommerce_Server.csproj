@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Ecoomerce_Library\Ecommerce_Library.csproj" />
+    <ProjectReference Include="..\Ecommerce_Models\Ecommerce_Models.csproj" />
     <ProjectReference Include="..\Web_Ecommerce_Cilent\Web_Ecommerce_Cilent.csproj" />
   </ItemGroup>
 
