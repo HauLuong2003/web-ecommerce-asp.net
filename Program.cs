@@ -2,7 +2,8 @@ using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
 using Web_Ecommerce_Server.Model;
 using Web_Ecommerce_Server.Reponsitory;
-using Web_Ecommerce_Server.Service;
+using Ecommerce_Models.Service;
+
 
 
 var builder = WebApplication.CreateBuilder(args);

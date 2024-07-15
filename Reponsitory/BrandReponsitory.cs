@@ -2,8 +2,9 @@
 using Microsoft.EntityFrameworkCore;
 using Web_Ecommerce_Server.Model;
 using Ecommerce_Models.Model.Entity;
-using Web_Ecommerce_Server.Response;
-using Web_Ecommerce_Server.Service;
+using Ecommerce_Models.Response;
+using Ecommerce_Models.Service;
+
 
 namespace Web_Ecommerce_Server.Reponsitory
 {
